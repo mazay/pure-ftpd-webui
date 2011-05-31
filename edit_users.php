@@ -59,7 +59,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 								</p>
 								<p>
 									<label>Пароль<br>
-									<INPUT type='text' name='Password' id='Password'>
+									<INPUT type='password' name='Password' id='Password'>
 									</label>
 								</p>
 								<p>
@@ -286,7 +286,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 								</p>
 								<p>
 									<label>Пароль<br>
-									<INPUT value="" type="text" name="Password" id="Password">
+									<INPUT value="" type="password" name="Password" id="Password">
 									</label>
 								</p>
 								<p>
