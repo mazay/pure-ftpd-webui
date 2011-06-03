@@ -1,2 +1,33 @@
-Homepage: 
+Pure-FTPd WebUI README
+======================
+
+Pure-FTPd WebUI Homepage: 
 http://mazay.home.dyndns.org/redmine/projects/pure-ftpd-webui
+
+Table of contents
+-----------------
+A. Requirements
+B. Installation
+
+A. Requirements
+---------------
+
+Pure-FTPd WebUI system requirements:
+
+    * Apache webserver
+    * PHP 5 or higher, php-mysql
+    * MySQL
+    * Pure-FTPd ftp daemon
+    
+B. Installation
+----------------------
+
+1. Download and unpack
+Download and unpack the Pure-FTPd WebUI archive to your webserver's document root folder. 
+
+
+2. Set permissions
+Make sure the Pure-FTPd WebUI directory are writable to your webserver user.
+
+3. Run installation
+Go to http://your_server/pure-ftpd-webui/install.php
