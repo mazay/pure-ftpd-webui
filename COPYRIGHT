@@ -3,7 +3,7 @@ Copyright © 2011
 Yevgeniy Valeyev, Karaganda, Kazakhstan
 
 Developed by:
-Yevgeniy Valeyev, Yura Rovnij;
+Yevgeniy Valeyev;
 
 License:
 This software is distributed under the GNU General Public License (GPL).
@@ -13,6 +13,8 @@ Pure-FTPd WebUI is provided as is with NO WARRANTY OF ANY KIND, including the wa
 of design, merchantability, and fitness for a particular purpose.
 
 Additional copyrights:
+Installer design by Yura Rovnij
+
 Pure-FTPd ftp daemon by Frank DENIS
 
 All other trademarks, servicemarks, registered trademarks, and
