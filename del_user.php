@@ -1,6 +1,6 @@
 <?php
 $master = "del_user.php";
-include ("lock.php");
+include ("blocks/lock.php");
 include ("blocks/db_connect.php"); /*Подлкючаемся к базе*/
 if (isset ($_GET['id'])) {$id = $_GET['id'];}
 
@@ -11,8 +11,8 @@ echo("<head>");
 echo("<title> Удаление пользователей </title>");
 echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" />");
 ?>
-
-<link href="stile.css" rel="StyleSheet" type="text/css">
+<link rel='shortcut icon' href='img/favicon.ico' />
+<link href="media/css/stile.css" rel="StyleSheet" type="text/css">
 <link href="media/css/demo_page.css" rel="StyleSheet" type="text/css">
 <link href="media/css/demo_table_jui.css" rel="StyleSheet" type="text/css">
 <link href="media/css/jquery-ui-1.7.2.custom.css" rel="StyleSheet" type="text/css">

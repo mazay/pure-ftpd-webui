@@ -271,7 +271,7 @@ table.display tr.even.gradeU {
 
 
 tr.odd {
-	background-color: #E2E4FF;
+	background-color: #E6E6E6;
 }
 
 tr.even {
@@ -370,7 +370,7 @@ table.display tr.odd.row_selected td {
  */
 /* For the standard odd/even */
 tr.odd td.sorting_1 {
-	background-color: #D3D6FF;
+	background-color: #CCCCCC;
 }
 
 tr.odd td.sorting_2 {
@@ -382,7 +382,7 @@ tr.odd td.sorting_3 {
 }
 
 tr.even td.sorting_1 {
-	background-color: #EAEBFF;
+	background-color: #E6E6E6;
 }
 
 tr.even td.sorting_2 {
@@ -506,19 +506,19 @@ tr.even.gradeU td.sorting_3 {
  */
  
 .ex_highlight #example tbody tr.even:hover, #example tbody tr.even td.highlighted {
-	background-color: #ECFFB3;
+	background-color: #9CE96A;
 }
 
 .ex_highlight #example tbody tr.odd:hover, #example tbody tr.odd td.highlighted {
-	background-color: #E6FF99;
+	background-color: #65D970;
 }
 
 .ex_highlight_row #example tr.even:hover {
-	background-color: #ECFFB3;
+	background-color: #B9F097;
 }
 
 .ex_highlight_row #example tr.odd:hover {
-	background-color: #E6FF99;
+	background-color: #B9F097;
 }
 
 
@@ -535,11 +535,11 @@ tr.even.gradeU td.sorting_3 {
 }
 
 .ex_highlight_row #users_table tr.even:hover {
-	background-color: #ECFFB3;
+	background-color: #B9F097;
 }
 
 .ex_highlight_row #users_table tr.even:hover td.sorting_1 {
-	background-color: #DDFF75;
+	background-color: #9CE96A;
 }
 
 .ex_highlight_row #users_table tr.even:hover td.sorting_2 {
@@ -551,11 +551,11 @@ tr.even.gradeU td.sorting_3 {
 }
 
 .ex_highlight_row #users_table tr.odd:hover {
-	background-color: #E6FF99;
+	background-color: #B9F097;
 }
 
 .ex_highlight_row #users_table tr.odd:hover td.sorting_1 {
-	background-color: #D6FF5C;
+	background-color: #8EFF68;
 }
 
 .ex_highlight_row #users_table tr.odd:hover td.sorting_2 {

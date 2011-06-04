@@ -1,6 +1,6 @@
 <?php
 $master = "edit_users.php";
-include ("lock.php");
+include ("blocks/lock.php");
 include ("blocks/db_connect.php"); /*Подключаемся к базе*/
 if (isset ($_GET['id'])) {$id = $_GET['id'];}
 
@@ -11,8 +11,8 @@ echo("<head>");
 echo("<title> Редактирование пользователей </title>");
 echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" />");
 ?>
-
-<link href="stile.css" rel="StyleSheet" type="text/css">
+<link rel='shortcut icon' href='img/favicon.ico' />
+<link href="media/css/stile.css" rel="StyleSheet" type="text/css">
 <link href="media/css/demo_page.css" rel="StyleSheet" type="text/css">
 <link href="media/css/demo_table_jui.css" rel="StyleSheet" type="text/css">
 <link href="media/css/jquery-ui-1.7.2.custom.css" rel="StyleSheet" type="text/css">
@@ -245,7 +245,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 						do {
 							// Выводим список пользователей
 							printf ("<tr>
-										<td align='center'><a href='edit_users.php?id=%s'>%s</a></td>
+										<td align='center'></a><a href='edit_users.php?id=%s'>%s</a></td>
 										<td align='center'>$myrow[status]</td>
 										<td>$myrow[Dir]</td>
 										<td align='center'>$myrow[ULBandwidth]</td>

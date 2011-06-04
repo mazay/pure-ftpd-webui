@@ -1,0 +1,123 @@
+/* CSS Document */
+
+body {
+	background:url("../../img/a1.gif") repeat-x scroll 0 0 #F9F9F7;
+}
+
+.main_border {
+	position: absolute;
+	top: 10px;
+	left: 10%;
+	background-color:#FDFDFC;
+	border:1px solid #777;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	box-shadow:10px 10px 20px #777;
+	-webkit-box-shadow:10px 10px 20px #777;
+	-moz-box-shadow:10px 10px 20px #777;
+}
+
+.header {
+	background-image: url("../../img/logo.jpg");
+	background-size: auto auto;
+	background-repeat: no-repeat;
+	background-position: 5% 65%;
+	background-color:#605F62;
+	border-top-left-radius: 9px;
+	border-top-right-radius: 9px;
+	-moz-border-radius-topleft: 9px;
+	-moz-border-radius-topright: 9px;
+}
+
+p {
+	font-family:"Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font-size:13px;
+	margin:15px;
+}
+
+p.text_title {
+	font-size:14px;
+	font-weight:bold;
+	color:#820000;
+	font-family:"Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	text-shadow:1px 1px 1px #6D6D6D;
+}
+
+.mailto {
+	font-size:12px;
+	font-family:sans-serif;
+	margin-left:15px;
+	margin-right:15px;
+	margin-bottom:1px;
+	margin-top:1px;
+}
+
+/*.bottom_border {background-color:#cccccc;}*/
+
+.footer {
+	font-family:sans-serif;
+	font-size:12px;
+	margin:4px 30px;
+}
+
+/* Menu */
+
+li {
+	margin-left: 35px;
+	font-size: 12px;
+	font-family: verdana;
+}
+
+.navy {
+	background-color:#605F62;
+}
+
+#menu {
+	float:left;
+	width:100%;
+	font-size:93%;
+	line-height:normal;
+}
+
+#menu ul {
+	margin:0;
+	padding:10px 10px 0;
+	list-style:none;
+}
+
+#menu li {
+	float:left;
+	background:url("../../img/menu/left.gif") no-repeat left top;
+	margin:0;
+	padding:0 0 0 9px;
+}
+
+#menu a, #menu strong, #menu span {
+	display:block;
+	background:url("../../img/menu/right.gif") no-repeat right top;
+	text-decoration:none;
+	font-weight:bold;
+	color:#242424;
+	padding:5px 15px 4px 6px;
+}
+
+#menu a:hover {
+	color:#820000;
+}
+
+#menu #current {
+	background-image:url("../../img/menu/left_on.gif");
+}
+
+#menu #current a {
+	background-image:url("../../img/menu/right_on.gif");
+	padding-bottom:5px;
+	color:#820000;
+}
+
+.menu_text {
+	margin: 1px 3px;
+	font-family: arial;
+	font-size: 12px;
+}

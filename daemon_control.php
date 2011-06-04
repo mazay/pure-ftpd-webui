@@ -1,6 +1,6 @@
 <?php
 $master = "daemon_control.php";
-include ("lock.php");
+include ("blocks/lock.php");
 include ("blocks/db_connect.php"); /*Подключаемся к базе*/
 
 echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"");
@@ -10,8 +10,8 @@ echo("<head>");
 echo("<title> Управление Pure-FTPd </title>");
 echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" />");
 ?>
-
-<link href="stile.css" rel="StyleSheet" type="text/css">
+<link rel='shortcut icon' href='img/favicon.ico' />
+<link href="media/css/stile.css" rel="StyleSheet" type="text/css">
 <link href="media/css/demo_page.css" rel="StyleSheet" type="text/css">
 <link href="media/css/demo_table_jui.css" rel="StyleSheet" type="text/css">
 <link href="media/css/jquery-ui-1.7.2.custom.css" rel="StyleSheet" type="text/css">
@@ -81,22 +81,20 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 				// Эта часть используется, если была нажата кнопка "Выполнить"
 				elseif($_POST['control']) {
 					// Проверяем какая была дана команда
-					if (isset ($_POST['start'])) {$start = $_POST['start']; if ($start == '') {unset ($start);}}
-					if (isset ($_POST['stop'])) {$stop = $_POST['stop']; if ($stop == '') {unset ($stop);}}
-					if (isset ($_POST['restart'])) {$restart = $_POST['restart']; if ($restart == '') {unset ($restart);}}
+					if (isset ($_POST['daemon_ctl'])) {$daemon_ctl = $_POST['daemon_ctl']; if ($daemon_ctl == '') {unset ($daemon_ctl);}}
 
 					// Если была дана команда "старт" - стартуем демона
-					if ((isset ($start)) and ($start == 'start')) {
+					if ($daemon_ctl == 'start') {
 						$result = shell_exec("sudo /etc/init.d/pure-ftpd start");
 						echo("<p>$result</p>");}
 
 					// Если была дана комнда "стоп" - останавливаем демона
-					elseif ((isset ($stop)) and ($stop == 'stop')) {
+					elseif ($daemon_ctl == 'stop') {
 						$result = shell_exec("sudo /etc/init.d/pure-ftpd stop");
 						echo("<p>$result</p>");}
 
 					// Если была дана команда "рестарт" - рестартуем демона
-					elseif ((isset ($restart)) and ($restart == 'restart')) {
+					elseif ($daemon_ctl == 'restart') {
 						$result = shell_exec("sudo /etc/init.d/pure-ftpd stop");
 						echo("<p>$result</p>");
 						$result = shell_exec("sudo /etc/init.d/pure-ftpd start");
@@ -120,17 +118,17 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 							<form name='dc' method='post' action='$PHP_SELF'><table align='center'><tr>
 								<td width='150px'><p>
 									<label>
-									<input type='radio' name='start' id='start' value='start'> Start
+									<input type='radio' name='daemon_ctl' id='start' value='start'> Start
 									</label>
 								</p>
 								<p>
 									<label>
-									<input type='radio' name='stop' id='stop' value='stop'> Stop
+									<input type='radio' name='daemon_ctl' id='stop' value='stop'> Stop
 									</label>
 								</p>
 								<p>
 									<label>
-									<input type='radio' name='restart' id='restart' value='restart'> Restart
+									<input type='radio' name='daemon_ctl' id='restart' value='restart'> Restart
 									</label>
 								</p></td>
 								<td><p>

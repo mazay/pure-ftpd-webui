@@ -1,0 +1,5 @@
+2011.04.06 Beta 0.1.0
+1. Added web based installation. It's create MySQL database, MySQL user for Pure-FTPd WebUI,
+Pure-FTPd Users table, Pure-FTPd WebUI users table, Pure-FTPd WebUI config.
+2. Some interface changes.
+3. Bug fixes.

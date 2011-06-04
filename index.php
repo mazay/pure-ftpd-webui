@@ -1,17 +1,17 @@
 <?php
 $master = "index.php";
-include ("lock.php");
+include ("blocks/lock.php");
 
 echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"");
 echo("\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
 echo("<HTML xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en-US\" xml:lang=\"en-US\">");
 echo("<HEAD>");
 echo("<title>Мониторинг активности</title>");
-echo("<meta http-equiv=\"Content-Type\" content=\"text/html;; charset='UTF-8'\" />");
+echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" />");
 echo("<meta http-equiv='refresh' content='30'/>");
 ?>
-
-<link href="stile.css" rel="StyleSheet" type="text/css">
+<link rel='shortcut icon' href='img/favicon.ico' />
+<link href="media/css/stile.css" rel="StyleSheet" type="text/css">
 <link href="media/css/demo_page.css" rel="StyleSheet" type="text/css">
 <link href="media/css/demo_table_jui.css" rel="StyleSheet" type="text/css">
 <link href="media/css/jquery-ui-1.7.2.custom.css" rel="StyleSheet" type="text/css">
