@@ -1,12 +1,28 @@
 <?php
 $master = "index.php";
 include ("blocks/lock.php");
+$user = $_SERVER['PHP_AUTH_USER'];
+include ("blocks/db_connect.php");
+$info = '';
+$get_user_language = FALSE;
+$get_user_language = mysql_query("SELECT language FROM userlist WHERE user='$user';");
+if (!$get_user_language) {
+	if (($err = mysql_errno()) == 1054) {
+		$info = "<p align=\"center\" class=\"table_error\">Your version of Pure-FTPd WebUI users table is not currently supported by current version, please upgrade your database to use miltilanguage support.</p>";
+		include("lang/english.php");
+	}
+}
+else {
+	$language_row = mysql_fetch_array ($get_user_language);
+	$language = $language_row['language'];
+	include("lang/$language.php");
+}
 
 echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"");
 echo("\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
 echo("<HTML xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en-US\" xml:lang=\"en-US\">");
 echo("<HEAD>");
-echo("<title>Мониторинг активности</title>");
+echo("<title>$ua_title</title>");
 echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" />");
 echo("<meta http-equiv='refresh' content='30'/>");
 ?>
@@ -17,18 +33,19 @@ echo("<meta http-equiv='refresh' content='30'/>");
 <link href="media/css/jquery-ui-1.7.2.custom.css" rel="StyleSheet" type="text/css">
 <script type="text/javascript" language="javascript" src="media/js/jquery.js"></script>
 <script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.js"></script>
-<script type="text/javascript" charset="utf-8">
+<? echo("
+<script type=\"text/javascript\" charset=\"utf-8\">
 			$(document).ready(function() {
 				$('#example').dataTable( {
-					"oLanguage": {
-						"sUrl": "media/dataTables.russian.txt"
+					\"oLanguage\": {
+						\"sUrl\": \"media/dataTables.$language.txt\"
 					},
-					"bJQueryUI": true,
-					"sPaginationType": "full_numbers",
-					"bSort": false
+					\"bJQueryUI\": true,
+					\"sPaginationType\": \"full_numbers\",
+					\"bSort\": false
 				} );
 			} );
-		</script>
+		</script> ");?>
 </head>
 <body id="dt_example" class="ex_highlight_row">
 <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" class="main_border">
@@ -42,9 +59,9 @@ echo("<meta http-equiv='refresh' content='30'/>");
     <tr>
       <? include("blocks/menu.php"); ?>
     </tr>
-</table><br><br><br><br>
+</table></br><? echo("$info"); ?></br></br></br>
 
-	<p class="text_title" align="center">Активные пользователи</p>
+	<? echo("<p class=\"text_title\" align=\"center\">$ua_t_title</p>"); ?>
 
 	<div id="container">
 
@@ -54,10 +71,10 @@ echo("<meta http-equiv='refresh' content='30'/>");
 		echo("<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" class=\"display\" id=\"example\">
 				<thead>
 					<tr>
-						<th>Пользователь</th>
-						<th>Время/Скорость</th>
-						<th>Статус</th>
-						<th>Файл/IP</th>
+						<th>$ua_t_th1</th>
+						<th>$ua_t_th2</th>
+						<th>$ua_t_th3</th>
+						<th>$ua_t_th4</th>
 					</tr>
 				</thead><tbody>");
 

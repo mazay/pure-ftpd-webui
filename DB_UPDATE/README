@@ -1,0 +1,2 @@
+To update your Pure-FTPd WebUI users table, run following command from server console:
+mysql -u root -p pureftpd < userlist_beta_0.1.1.sql

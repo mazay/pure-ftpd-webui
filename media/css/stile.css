@@ -53,6 +53,20 @@ p.text_title {
 	margin-top:1px;
 }
 
+p.user {
+	margin-top: -40px;
+	float: right;
+	width: 100%;
+	font-size: 93%;
+	line-height: normal;
+	color:#fff;
+}
+
+p.table_error {
+	font-size:13px;
+	color: #862E2E
+}
+
 /*.bottom_border {background-color:#cccccc;}*/
 
 .footer {

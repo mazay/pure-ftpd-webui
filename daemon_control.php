@@ -2,12 +2,27 @@
 $master = "daemon_control.php";
 include ("blocks/lock.php");
 include ("blocks/db_connect.php"); /*Подключаемся к базе*/
+$user = $_SERVER['PHP_AUTH_USER'];
+$info = '';
+$get_user_language = FALSE;
+$get_user_language = mysql_query("SELECT language FROM userlist WHERE user='$user';");
+if (!$get_user_language) {
+	if (($err = mysql_errno()) == 1054) {
+		$info = "<p align=\"center\" class=\"table_error\">Your version of Pure-FTPd WebUI users table is not currently supported by current version, please upgrade your database to use miltilanguage support.</p>";
+		include("lang/english.php");
+	}
+}
+else {
+	$language_row = mysql_fetch_array ($get_user_language);
+	$language = $language_row['language'];
+	include("lang/$language.php");
+}
 
 echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"");
 echo("\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
 echo("<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en-US\" xml:lang=\"en-US\">");
 echo("<head>");
-echo("<title> Управление Pure-FTPd </title>");
+echo("<title>$dc_title</title>");
 echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" />");
 ?>
 <link rel='shortcut icon' href='img/favicon.ico' />
@@ -28,7 +43,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
     <tr>
       <? include("blocks/menu.php"); ?>
     </tr>
-</table><br><br>
+</table></br><? echo("$info"); ?></br>
 
 		
 			<?php
@@ -44,9 +59,9 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 					echo "	<form method='post' action='daemon_control.php?area=edit'>
 								<p align='center'>
 									<input type='hidden' name='file' value='$filename'>
-									<textarea name='content' cols='100' rows='30'>".$contents."</textarea><br><br>
-									<input type='submit' name='daemon' value='Назад'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-									<input type='submit' name='update' value='Сохранить'>
+									<textarea name='content' cols='100' rows='30'>".$contents."</textarea></br></br>
+									<input type='submit' name='daemon' value='$dc_confeditbackbutton'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+									<input type='submit' name='update' value='$dc_confeditsavebutton'>
 								</p>
 							</form>";
 					// Закрываем файл
@@ -65,15 +80,15 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 						// Закрываем файл
 						fclose($handle);
 						// Выводим сообщение о удачном завершении операции
-						echo "<p align='center'><strong>Изменения сохранены, для принятия изменений перезапустите демон Pure-FTPd.</strong></p>";
+						echo "<p align='center'><strong>$dc_confeditsuccess</strong></p>";
 					// Если прав для записи в файл недостаточно, выводим сообщение об ошибке
 					} else {
-				echo "<p align='center'><strong>Конфиг небыл изменён, нехватает прав для записи.</strong></p><br>";}
+				echo "<p align='center'><strong>$dc_confeditnorights</strong></p></br>";}
 
 				echo "	<form method='post' action='$PHP_SELF'>
 							<p align='center'>
-								<input type='submit' name='edit' value='Назад'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-								<input type='submit' name='daemon' value='Управление демоном'>
+								<input type='submit' name='edit' value='$dc_confeditbackbutton'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+								<input type='submit' name='daemon' value='$dc_daemoncontrol'>
 							</p>
 						</form>";
 				}
@@ -103,10 +118,10 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 					// Если ни один вариант не верен - выдаём ошибку
 					else {echo("<p><strong>Передана неверная команда демону Pure-FTPd</strong></p>");}
 
-					echo "<br>
+					echo "</br>
 							<form method='post' action='$PHP_SELF'>
 								<p align='center'>
-									<input type='submit' name='daemon' value='Назад'>
+									<input type='submit' name='daemon' value='$dc_wrongcommandback'>
 								</p>
 							</form>";
 				}
@@ -114,7 +129,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 				else {
 					if ((isset ($_POST['daemon'])) || (!isset ($_POST['']))) {
 					echo "
-							<p class='text_title' align='center'>Управление демоном Pure-FTPd</p>
+							<p class='text_title' align='center'>$dc_dctitle</p>
 							<form name='dc' method='post' action='$PHP_SELF'><table align='center'><tr>
 								<td width='150px'><p>
 									<label>
@@ -133,19 +148,19 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 								</p></td>
 								<td><p>
 									<label>
-									<input type='submit' name='control' value='Выполнить'>
+									<input type='submit' name='control' value='$dc_dcperformbutton'>
 									</label>
-								</p></td></tr></table></form><br>
+								</p></td></tr></table></form></br>
 
 							<form method='post' action='$PHP_SELF'>
 								<p align='center'>
-									<input type='submit' name='edit' value='Править конфиг'>
+									<input type='submit' name='edit' value='$dc_dceditconfig'>
 								</p>
 							</form>";}
 				}
 			?>
 
-				<br><br>
+				</br></br>
                </td>
             </tr>
           </table>

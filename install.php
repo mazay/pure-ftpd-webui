@@ -21,35 +21,35 @@ echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://
 					<tr>
 						<td align=\"right\" width=\"10%\">
 							<p align=\"left\">
-								<b>Информация для подключения к базе данных Pure-FTPd</b></br></br>
-								<label>MySQL хост</br>
+								<b>Setup connection to Pure-FTPd database</b></br></br>
+								<label>MySQL host</br>
 									<input type=\"text\" name=\"mysql_host\" id=\"mysql_host\" value=\"localhost\"></br>
 								</label>
 
-								<label>Логин администратора</br>
+								<label>MySQL administrator login</br>
 									<input type=\"text\" name=\"mysql_admin\" id=\"mysql_admin\"></br>
 								</label>
 
-								<label>Пароль</br>
+								<label>MySQL administrator password</br>
 									<input type=\"password\" name=\"mysql_passwd\" id=\"mysql_passwd\"></br>
 								</label>
 
-								<label>База данных</br>
+								<label>Database</br>
 									<input type=\"text\" name=\"mysql_database\" id=\"mysql_database\" value=\"pureftpd\"></br></br>
 								</label>
 								
-								<b>Пользователь MySQL для Pure-FTPd WebUI</b></br></br>
+								<b>MySQL user for Pure-FTPd WebUI</b></br></br>
 								
-								<label>Имя пользователя</br>
+								<label>Login</br>
 									<input type=\"text\" name=\"mysql_webui_user\" id=\"mysql_webui_user\" value=\"purewebui\"></br>
 								</label>
 								
-								<label>Пароль</br>
+								<label>Password</br>
 									<input type=\"password\" name=\"mysql_webui_passwd\" id=\"mysql_webui_passwd\" value=\"purewebui\"></br></br>
 								</label>
 
 								<label>
-									<input type=\"submit\" name=\"install_mysql\" id=\"install_mysql\" value=\"Далее\">
+									<input type=\"submit\" name=\"install_mysql\" id=\"install_mysql\" value=\"Next\">
 								</label>
 							</p>
 						</td>
@@ -73,11 +73,11 @@ echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://
 					mysql_select_db($mysql_database, $db_handler);
 					$mysql_webui_create = mysql_query("GRANT ALL PRIVILEGES ON $mysql_database.* TO '$mysql_webui_user'@'$local_ip' IDENTIFIED BY '$mysql_webui_passwd';");
 					if (!$mysql_webui_create) {
-						echo("<p class=\"info\" align=\"left\">ОШИБКА: Не удалось создать пользователя $mysql_webui_user.</p>\n");
+						echo("<p class=\"info\" align=\"left\">ERROR: Can not create user $mysql_webui_user.</p>\n");
 					}
 					$mysql_webui_create2 = mysql_query("GRANT ALL PRIVILEGES ON $mysql_database.* TO '$mysql_webui_user'@'$mysql_host' IDENTIFIED BY '$mysql_webui_passwd';");
 					if (!$mysql_webui_create2) {
-						echo("<p class=\"info\" align=\"left\">ОШИБКА: Не удалось создать пользователя $mysql_webui_user.</p>\n");
+						echo("<p class=\"info\" align=\"left\">ERROR: Can not create user $mysql_webui_user.</p>\n");
 					}
 				}
 				// Функция для создания таблицы Pure-FTPd
@@ -108,10 +108,10 @@ echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://
 					mysql_select_db($mysql_database,$db_handler);
 					$users_table_create = mysql_query($ftp_users_table,$db_handler);
 					if (!$users_table_create) {
-						echo("<p class=\"error\" align=\"left\">ОШИБКА: Не удалось создать таблицу пользователей Pure-FTPd.</p>\n");
+						echo("<p class=\"error\" align=\"left\">ERROR: Can not create users table for Pure-FTPd.</p>\n");
 					}
 					else {
-						echo("<p class=\"info\" align=\"left\">Создана таблица пользователей Pure-FTPd - \"ftpd\".</p>\n");
+						echo("<p class=\"info\" align=\"left\">Created users table for Pure-FTPd.</p>\n");
 					}
 				}
 				// Функция создания таблицы WebUI
@@ -125,16 +125,17 @@ echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://
 										  `id` int(3) NOT NULL AUTO_INCREMENT,
 										  `user` varchar(50) COLLATE utf8_bin NOT NULL,
 										  `pass` varchar(50) COLLATE utf8_bin NOT NULL,
+										  `language` varchar(50) COLLATE utf8_bin DEFAULT NULL,
 										  PRIMARY KEY (`id`)
 										) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;";
 					$webui_table_create = FALSE;
 					mysql_select_db($mysql_database, $db_handler);
 					$webui_table_create = mysql_query($webui_users_table,$db_handler);
 					if (!$webui_table_create) {
-						echo("<p class=\"error\" align=\"left\">ОШИБКА: Не удалось создать таблицу пользователей Pure-FTPd WebUI.</p>\n");
+						echo("<p class=\"error\" align=\"left\">ERROR: Can not create users table for Pure-FTPd WebUI.</p>\n");
 					}
 					else {
-						echo("<p class=\"info\" align=\"left\">Создана таблица пользователей Pure-FTPd WebUI - \"userlist\".</p>\n");
+						echo("<p class=\"info\" align=\"left\">Created users table for Pure-FTPd WebUI.</p>\n");
 					}
 				}
 				// Функция для создания БД
@@ -147,10 +148,10 @@ echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://
 					$db_create = FALSE;
 					$db_create = mysql_query("CREATE DATABASE $mysql_database",$db_handler);
 					if (!$db_create) {
-						echo("<p class=\"error\" align=\"left\">ОШИБКА: Не удалось создать базу данных. Возможно недостаточно прав для данной операции.</p>\n");
+						echo("<p class=\"error\" align=\"left\">ERROR: Can not create database. Maybe you don't have permissions to create database.</p>\n");
 					}
 					else {
-						echo("<p class=\"info\" align=\"left\">Создана база данных Pure-FTPd - \"$mysql_database\".</p>\n");
+						echo("<p class=\"info\" align=\"left\">Created Pure-FTPd database - \"$mysql_database\".</p>\n");
 					}
 				}
 				// Функция создания конфига Pure-FTPd WebUI
@@ -179,7 +180,7 @@ echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://
 				$db_handler = mysql_connect($mysql_host,$mysql_admin,$mysql_passwd);
 
 				if (!$db_handler) {
-					echo("<p class=\"error\" align=\"left\">ОШИБКА: Не удалось подключиться к MySQL серверу.</p>\n");
+					echo("<p class=\"error\" align=\"left\">ERROR: Can not connect to MySQL server.</p>\n");
 				}
 
 				if (isset ($mysql_database) && $mysql_database != '') {
@@ -194,7 +195,7 @@ echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://
 						}
 					}
 					else {
-						echo("<p class=\"info\" align=\"left\">Используется существующая база данных $mysql_database.</p>\n");
+						echo("<p class=\"info\" align=\"left\">Using already existing database $mysql_database.</p>\n");
 						create_webui_user();
 						$test_ftp_table = "SELECT * FROM ftpd";
 						$result = mysql_query($test_ftp_table);
@@ -203,7 +204,7 @@ echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://
 							create_table_ftp();
 						}
 						else {
-							echo("<p class=\"info\" align=\"left\">Используется существующая таблица пользователей Pure-FTPd.</p><p class=\"warning\" align=\"left\">ВНИМАНИЕ структура таблицы может отличаться.</p>\n");
+							echo("<p class=\"info\" align=\"left\">Using already existing Pure-FTPd users table.</p><p class=\"warning\" align=\"left\">WARNING the structure of the table may be differ.</p>\n");
 						}
 						$test_webui_table = "SELECT * FROM userlist";
 						$result = mysql_query($test_webui_table);
@@ -211,7 +212,7 @@ echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://
 							create_table_webui();
 						}
 						else {
-							echo("<p class=\"info\" align=\"left\">Используется существующая таблица пользователей Pure-FTPd WebUI.</p><p class=\"warning\" align=\"left\">ВНИМАНИЕ структура таблицы может отличаться.</p>\n");
+							echo("<p class=\"info\" align=\"left\">Using already existing Pure-FTPd WebUI users table.</p><p class=\"warning\" align=\"left\">WARNING the structure of the table may be differ.</p>\n");
 						}
 					}
 				}
@@ -221,19 +222,19 @@ echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://
 					<form name=\"3\" method=\"post\" action=\"$PHP_SELF\">
                     <tr>
                         <td align=\"right\" width=\"10%\">
-                        	<p align=\"left\" class=\"text_title\" >Для создания администратора Pure-FTPd WebUI </br> требуется заполнить следующие поля</p>
+                        	<p align=\"left\" class=\"text_title\" >To create Pure-FTPd WebUI administrator</br>fill in the following fields</p>
                             <p align=\"left\">
                             	                            
-                                <label>Логин администратора </br> Pure-FTPd WebUI</br>
+                                <label>Pure-FTPd WebUI administrator login</br>
                                     <input type=\"text\" name=\"webui_admin\" id=\"webui_admin\"></br>
                                 </label>
 
-                                <label>Пароль администратора</br>
+                                <label>Pure-FTPd WebUI administrator password</br>
                                     <input type=\"password\" name=\"webui_admin_passwd\" id=\"webui_admin_passwd\"></br></br>
                                 </label>
 
                                 <label>
-                                    <input type=\"submit\" name=\"add_webui_admin\" id=\"add_webui_admin\" value=\"Далее\">
+                                    <input type=\"submit\" name=\"add_webui_admin\" id=\"add_webui_admin\" value=\"next\">
                                 </label>
 
 									<input type=\"hidden\" name=\"mysql_host\" id=\"mysql_host\" value=\"$mysql_host\"></br>
@@ -263,25 +264,25 @@ echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://
 				$add_user_queue = "INSERT INTO userlist (user,pass) VALUES ('$webui_admin',md5('$webui_admin_passwd'))";
 				$result = mysql_query($add_user_queue);
 				if ($result != FALSE) {
-					echo("<p class=\"info\" align=\"left\">Учётная запись администратора добавлена. </br> Pure-FTPd WebUI доступен по <a href=\"/pure-ftpd-webui\">ссылке</a>.</p>\n");
+					echo("<p class=\"info\" align=\"left\">The administrator account is added. </br> Pure-FTPd WebUI available <a href=\"/pure-ftpd-webui\">here</a>.</p>\n");
 				}
 				else {
-					echo("<p class=\"error\" align=\"left\">Ошибка при выполнении операции, пользователь не создан.</p>\n");
+					echo("<p class=\"error\" align=\"left\">An error occurred while performing an operation, the user is not added.</p>\n");
 				}
 			}
 			else {
-				echo("<p class=\"error\" align=\"left\">Заполнены не все поля!</p>\n");
+				echo("<p class=\"error\" align=\"left\">Not filled in all fields!</p>\n");
 			}
 		}
 
 		else {
 			echo("
-				<p align=\"center\" class=\"text_title\" >Вас приветствует мастер установки </br> Pure-FTPd WebUI beta 0.1.0</p>
+				<p align=\"center\" class=\"text_title\" >Welcome to </br> Pure-FTPd WebUI beta 0.1.0 installer</p>
 
 				<form name=\"1\" method=\"post\" action=\"$PHP_SELF\">
 					<p align=\"center\">
 						<label>
-							<input type=\"submit\" name=\"install\" id=\"install\" value=\"Установить\">
+							<input type=\"submit\" name=\"install\" id=\"install\" value=\"Install\">
 						</label>
 					</p>
 				</form>

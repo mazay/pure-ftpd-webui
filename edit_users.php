@@ -3,12 +3,27 @@ $master = "edit_users.php";
 include ("blocks/lock.php");
 include ("blocks/db_connect.php"); /*Подключаемся к базе*/
 if (isset ($_GET['id'])) {$id = $_GET['id'];}
+$user = $_SERVER['PHP_AUTH_USER'];
+$info = '';
+$get_user_language = FALSE;
+$get_user_language = mysql_query("SELECT language FROM userlist WHERE user='$user';");
+if (!$get_user_language) {
+	if (($err = mysql_errno()) == 1054) {
+		$info = "<p align=\"center\" class=\"table_error\">Your version of Pure-FTPd WebUI users table is not currently supported by current version, please upgrade your database to use miltilanguage support.</p>";
+		include("lang/english.php");
+	}
+}
+else {
+	$language_row = mysql_fetch_array ($get_user_language);
+	$language = $language_row['language'];
+	include("lang/$language.php");
+}
 
 echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"");
 echo("\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
 echo("<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en-US\" xml:lang=\"en-US\">");
 echo("<head>");
-echo("<title> Редактирование пользователей </title>");
+echo("<title>$um_title</title>");
 echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" />");
 ?>
 <link rel='shortcut icon' href='img/favicon.ico' />
@@ -18,17 +33,19 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 <link href="media/css/jquery-ui-1.7.2.custom.css" rel="StyleSheet" type="text/css">
 <script type="text/javascript" language="javascript" src="media/js/jquery.js"></script>
 <script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.js"></script>
-<script type="text/javascript" charset="utf-8">
+<? echo("
+<script type=\"text/javascript\" charset=\"utf-8\">
             $(document).ready(function() {
                 $('#users_table').dataTable( {
-                    "oLanguage": {
-                        "sUrl": "media/dataTables.russian.txt"
+                    \"oLanguage\": {
+                        \"sUrl\": \"media/dataTables.$language.txt\"
                     },
-					"bJQueryUI": true,
-					"sPaginationType": "full_numbers"
+					\"bJQueryUI\": true,
+					\"sPaginationType\": \"full_numbers\"
                 } );
             } );
-        </script></head>
+        </script> ");?>
+</head>
 <body id="dt_example" class="ex_highlight_row">
 <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" class="main_border">
   <tbody>
@@ -41,55 +58,55 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
     <tr>
       <? include("blocks/menu.php"); ?>
     </tr>
-		</table><br><br>
+		</table></br><? echo("$info"); ?></br>
 				<?php
 					// Эта часть используется, если была нажата кнопка "Добавить пользователя"
 					if($_POST['add_user']) {
 						echo"
 							<FORM name='add' method='post' action='$PHP_SELF'>
 								<p>
-									<label>Имя пользователя<br>
+									<label>$um_userform_login</br>
 									<INPUT type='text' name='User' id='User'>
 									</label>
 								</p>
 								<p>
-									<label>Статус пользователя<br>(0 - не активен, 1 - активен)<br>
+									<label>$um_userform_status</br>
 									<INPUT type='text' name='status' id='status'>
 									</label>
 								</p>
 								<p>
-									<label>Пароль<br>
+									<label>$um_userform_pwd</br>
 									<INPUT type='password' name='Password' id='Password'>
 									</label>
 								</p>
 								<p>
-									<label>Папка пользователя<br>(оставьте поле пустым, чтобы использовать значение по умолчанию)<br>
+									<label>$um_userform_folder</br>
 									<INPUT type='text' name='Dir' id='Dir'>
 									</label>
 								</p>
 								<p>
-									<label>Ограничение скорости загрузки на сервер KB/s, 0 - без ограничений<br>(оставьте поле пустым, чтобы использовать значение по умолчанию)<br>
+									<label>$um_userform_ullimit</br>
 									<INPUT type='text' name='ULBandwidth' id='ULBandwidth'>
 									</label>
 								</p>
 								<p>
-									<label>Ограничение скорости скачивания с севера KB/s, 0 - без ограничений<br>(оставьте поле пустым, чтобы использовать значение по умолчанию)<br>
+									<label>$um_userform_dllimit</br>
 									<INPUT type='text' name='DLBandwidth' id='DLBandwidth'>
 									</label>
 								</p>
 								<p>
-									<label>Разрешённый IP-адрес пользователя, * - любой IP-адрес<br>(оставьте поле пустым, чтобы использовать значение по умолчанию)<br>
+									<label>$um_userform_permip</br>
 									<INPUT type='text' name='ipaccess' id='ipaccess'>
 									</label>
-								</p><br>
+								</p></br>
 								<p>
 									<label>
-									<INPUT type='submit' name='add' id='add' value='Добавить'>
+									<INPUT type='submit' name='add' id='add' value='$um_add_addbutton'>
 									</label>
 								</p>
 								<p>
 									<label>
-									<INPUT type='submit' name='users' id='users' value='Вренуться к списку пользователей'>
+									<INPUT type='submit' name='users' id='users' value='$um_add_backbutton'>
 									</label>
 								</p>
 							</FORM>";
@@ -97,7 +114,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 
 					// Эта часть используется, если была нажата кнопка "Добавить"
 					elseif($_POST['add']) {
-						echo "<br><br><br>";
+						echo "</br></br></br>";
 
 						// Проверяем были ли заполнены поля, если поля не были заполнены - выставляем переменную равной пустому полю
 						if (isset ($_POST['User'])) {$User = $_POST['User']; if ($User == '') {unset ($User);}}
@@ -127,17 +144,17 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 						// Если все нужные поля заполнены, добавляем пользователя в базу pureftpd
 						if (isset ($User) && isset($status) && isset($Password) && isset ($Dir) && isset ($DLBandwidth) && isset ($ULBandwidth) && isset ($_POST['ipaccess'])) {
 							$result = mysql_query ("INSERT INTO ftpd (User,status,Password,Dir,ULBandwidth,DLBandwidth,ipaccess) VALUES ('$User','$status',md5('$Password'),'$Dir','$ULBandwidth','$DLBandwidth','$ipaccess')");
-							if ($result == 'true') {echo "<p><strong>Пользователь $User успешно добавлен</strong></p>";}
-							else {echo "<p><strong>Ошибка: $result</strong></p>";}
+							if ($result == 'true') {echo "<p><strong>$um_add_presultok</strong></p>";}
+							else {echo "<p><strong>$um_add_presulterror</strong></p>";}
 						}
 
-						else {echo "<p><strong>Пользователь не добавлен, заполнены не все поля.</strong></p>";}
+						else {echo "<p><strong>$um_add_checkfields</strong></p>";}
 
-						echo "<br>
+						echo "</br>
 							<form name='to_list' method='post' action='$PHP_SELF'>
 								<p>
 									<label>
-									<input type='submit' name='users' id='users' value='Вренуться к списку пользователей'>
+									<input type='submit' name='users' id='users' value='$um_add_checkfieldsback'>
 									</label>
 								</p>
 							</form>";
@@ -145,7 +162,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 
 					// Эта часть используется, если была нажата кнопка "Сохранить изменения"
 					elseif($_POST['edit']) {
-						echo "<br><br><br>";
+						echo "</br></br></br>";
 
 						// Проверяем были ли заполнены поля, если поля не были заполнены - выставляем переменную равной пустому полю
 						if (isset ($_POST['User'])) {$User = $_POST['User']; if ($User == '') {unset ($User);}}
@@ -167,59 +184,59 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 							// Если изменена папка пользователя, вносим изменения в базу
 							if (($Dir != $array[Dir]) && isset ($id)) {
 								$result = mysql_query ("UPDATE ftpd SET Dir='$Dir' WHERE id='$id'");
-								if ($result == 'true') {echo "<p><strong>Папка пользователя $array[User] успешно сохранена</strong></p>";}
-								else {echo "<p><strong>Ошибка: $result</strong></p>";}
+								if ($result == 'true') {echo "<p><strong>$um_edit_folderok</strong></p>";}
+								else {echo "<p><strong>$um_edit_foldererror</strong></p>";}
 
 							}
 							// Если изменено имя пользователя, вносим изменения в базу
 							if (($User != $array[User]) && isset ($id)) {
 								$result = mysql_query ("UPDATE ftpd SET User='$User' WHERE id='$id'");
-								if ($result == 'true') {echo "<p><strong>Имя пользователя $array[User] успешно изменено на $User</strong></p>";}
-								else {echo "<p><strong>Ошибка: $result</strong></p>";}
+								if ($result == 'true') {echo "<p><strong>$um_edit_loginok</strong></p>";}
+								else {echo "<p><strong>$um_edit_loginerror</strong></p>";}
 							}
 
 							// Если изменён статус пользователя, вносим изменения в базу
 							if (($status != $array[status]) && isset ($id)) {
 								$result = mysql_query ("UPDATE ftpd SET status='$status' WHERE id='$id'");
-								if ($result == 'true') {echo "<p><strong>Статус пользователя $array[User] успешно сохранён</strong></p>";}
-								else {echo "<p><strong>Ошибка: $result</strong></p>";}
+								if ($result == 'true') {echo "<p><strong>$um_edit_statusok</strong></p>";}
+								else {echo "<p><strong>$um_edit_statuserror</strong></p>";}
 							}
 
 							// Если изменён пароль пользователя, вносим изменения в базу
 							if (isset ($Password)) {$Password = md5($Password);
 								if (($Password != $array[Password]) && isset ($id)) {
 									$result = mysql_query ("UPDATE ftpd SET Password=md5('$Password') WHERE id='$id'");
-									if ($result == 'true') {echo "<p><strong>Пароль пользователя $array[User] успешно сохранён</strong></p>";}
-									else {echo "<p><strong>Ошибка: $result</strong></p>";}}
+									if ($result == 'true') {echo "<p><strong>$um_edit_passwdok</strong></p>";}
+									else {echo "<p><strong>$um_edit_passwderror</strong></p>";}}
 							}
 
 							// Если изменено ограничение скорости загрузки, вносим изменения в базу
 							if (($ULBandwidth != $array[ULBandwidth]) && isset ($id)) {
 								$result = mysql_query ("UPDATE ftpd SET ULBandwidth='$ULBandwidth' WHERE id='$id'");
-								if ($result == 'true') {echo "<p><strong>Ограничение скорости загрузки на сервер для пользователя $array[User] успешно сохранено</strong></p>";}
-								else {echo "<p><strong>Ошибка: $result</strong></p>";}
+								if ($result == 'true') {echo "<p><strong>$um_edit_ullimitok</strong></p>";}
+								else {echo "<p><strong>$um_edit_ullimiterror</strong></p>";}
 							}
 
 							// Если изменено ограничение скорости скачивания, вносим изменения в базу
 							if (($DLBandwidth != $array[DLBandwidth]) && isset ($id)) {
 								$result = mysql_query ("UPDATE ftpd SET DLBandwidth='$DLBandwidth' WHERE id='$id'");
-								if ($result == 'true') {echo "<p><strong>Ограничение скорости скачивания с сервера для пользователя $array[User] успешно сохранено</strong></p>";}
-								else {echo "<p><strong>Ошибка: $result</strong></p>";}
+								if ($result == 'true') {echo "<p><strong>$um_edit_dllimitok</strong></p>";}
+								else {echo "<p><strong>$um_edit_dllimiterror</strong></p>";}
 							}
 							// Если изменён разрешенный IP адрес, вносим изменения в базу
 							if (($ipaccess != $array[ipaccess]) && isset ($id)) {
 								$result = mysql_query ("UPDATE ftpd SET ipaccess='$ipaccess' WHERE id='$id'");
-								if ($result == 'true') {echo "<p><strong>Разрешённый IP адрес для пользователя $array[User] успешно сохранён</strong></p>";}
-								else {echo "<p><strong>Ошибка: $result</strong></p>";}
+								if ($result == 'true') {echo "<p><strong>$um_edit_permipok</strong></p>";}
+								else {echo "<p><strong>$um_edit_permiperror</strong></p>";}
 							}
 						}
-						else {echo"<p><strong>Вы не вносили изменений</strong></p>";}
+						else {echo"<p><strong>$um_edit_nochanges</strong></p>";}
 
-					echo"<br>
+					echo"</br>
 							<form name='to_list' method='post' action='$PHP_SELF'>
 								<p>
 									<label>
-									<input type='submit' name='users' id='users' value='Вренуться к списку пользователей'>
+									<input type='submit' name='users' id='users' value='$um_edit_nochangesback'>
 									</label>
 								</p>
 							</form>";
@@ -228,16 +245,16 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 						if ((!isset ($id)) || (isset ($_POST['users']))) {
 						// Шапка таблицы
 						echo("
-							<p class='text_title' align='center'><strong>Выберите пользователя для редактирования</strong></p><div id='container'>
+							<p class='text_title' align='center'><strong>$um_t_title</strong></p><div id='container'>
 							<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" class=\"display\" id=\"users_table\">
 								<thead>
 									<tr>
-										<th>Имя пользователя</th>
-										<th>Статус</th>
-										<th>Папка</th>
-										<th>upload limit (kb/s)</th>
-										<th>download limit (kb/s)</th>
-										<th>Разрешённый IP</th>
+										<th>$um_t_th1</th>
+										<th>$um_t_th2</th>
+										<th>$um_t_th3</th>
+										<th>$um_t_th4</th>
+										<th>$um_t_th5</th>
+										<th>$um_t_th6</th>
 									</tr>
 								</thead><tbody>");
 						$result = mysql_query ("SELECT * FROM ftpd");
@@ -258,11 +275,11 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 						echo("	</tbody></table>");
 											
 
-						echo("<br><br><table width='95%' border='0' align='center' cellpadding='0' cellspacing='0'><tr><td align='right'>
+						echo("</br></br><table width='95%' border='0' align='center' cellpadding='0' cellspacing='0'><tr><td align='right'>
 								<form name='edit' method='post' action='$PHP_SELF'>
 									<p>
 										<label>
-										<input type='submit' name='add_user' id='add_user' value='Добавить пользователя'>
+										<input type='submit' name='add_user' id='add_user' value='$um_adduserbutton'>
 										</label>
 									</p>
 								</form></tr><td></table>");
@@ -274,50 +291,49 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 						print <<<HERE
 							<FORM name="form1" method="post" action="$PHP_SELF">
 								<p>
-									<label>Имя пользователя<br>
+									<label>$um_userform_login</br>
 									<INPUT value="$myrow[User]" type="text" name="User" id="User">
 									</label>
 								</p>
 								<p>
-									<label>	Статус пользователя<br>
-											(0 - не активен, 1 - активен)<br>
+									<label>$um_userform_status</br>
 									<INPUT value="$myrow[status]" type="text" name="status" id="status">
 									</label>
 								</p>
 								<p>
-									<label>Пароль<br>
+									<label>$um_userform_pwd</br>
 									<INPUT value="" type="password" name="Password" id="Password">
 									</label>
 								</p>
 								<p>
-									<label>Папка пользователя<br>
+									<label>$um_userform_folder</br>
 									<INPUT value="$myrow[Dir]" type="text" name="Dir" id="Dir">
 									</label>
 								</p>
 								<p>
-									<label>Ограничение скорости загрузки на сервер KB/s, 0 - без ограничений<br>
+									<label>$um_userform_ullimit</br>
 									<INPUT value="$myrow[ULBandwidth]" type="text" name="ULBandwidth" id="ULBandwidth">
 									</label>
 								</p>
 								<p>
-									<label>Ограничение скорости скачивания с сервера KB/s, 0 - без ограничений<br>
+									<label>$um_userform_dllimit</br>
 									<INPUT value="$myrow[DLBandwidth]" type="text" name="DLBandwidth" id="DLBandwidth">
 									</label>
 								</p>
 								<p>
-									<labe>Разрешённый IP-адрес пользователя, * - любой IP-адрес<br>
+									<labe>$um_userform_permip</br>
 									<INPUT value="$myrow[ipaccess]" type="text" name="ipaccess" id="ipaccess">
 									</label>
-								</p><br>
+								</p></br>
 									<INPUT name="id" type="hidden" value="$myrow[id]">
 								<p>
 									<label>
-									<INPUT type="submit" name="edit" id="edit" value="Сохранить изменения">
+									<INPUT type="submit" name="edit" id="edit" value="$um_edit_savebutton">
 									</label>
 								</p>
 								<p>
 									<label>
-									<INPUT type="submit" name="users" id="users" value="Вренуться к списку пользователей">
+									<INPUT type="submit" name="users" id="users" value="$um_edit_backbutton">
 									</label>
 								</p>
 							</FORM>

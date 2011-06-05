@@ -1,44 +1,46 @@
 <td valign="top" height="30px" class="navy">
 <div id="menu">
-  <ul><?php
-if ($master == "index.php")
-{
-echo "<li id='current'><a href='index.php'><p class='menu_text'>Мониторинг активности</p></a></li>";
-}
-else
-{
-echo "<li><a href='index.php'><p class='menu_text'>Мониторинг активности</p></a></li>";
-}
-?>
-<?php
-if ($master == "edit_users.php")
-{
-echo "<li id='current'><a href='edit_users.php'><p class='menu_text'>Пользователи</p></a></li>";
-}
-else
-{
-echo "<li><a href='edit_users.php'><p class='menu_text'>Пользователи</p></a></li>";
-}
-?>
-<?php
-if ($master == "del_user.php")
-{
-echo "<li id='current'><a href='del_user.php'><p class='menu_text'>Удалить пользователя</p></a></li>";
-}
-else
-{
-echo "<li><a href='del_user.php'><p class='menu_text'>Удалить пользователя</p></a></li>";
-}
-?>
-<?php
-if ($master == "daemon_control.php")
-{
-echo "<li id='current'><a href='daemon_control.php'><p class='menu_text'>Pure-FTPd</p></a></li>";
-}
-else
-{
-echo "<li><a href='daemon_control.php'><p class='menu_text'>Pure-FTPd</p></a></li>";
-}
-?>
-  </ul>
+	<ul><?php
+		if ($master == "index.php")
+		{
+			echo "<li id='current'><a href='index.php'><p class='menu_text'>$menu1_act</p></a></li>";
+		}
+		else
+		{
+			echo "<li><a href='index.php'><p class='menu_text'>$menu1_act</p></a></li>";
+		}
+		if ($master == "edit_users.php")
+		{
+			echo "<li id='current'><a href='edit_users.php'><p class='menu_text'>$menu2_users</p></a></li>";
+		}
+		else
+		{
+			echo "<li><a href='edit_users.php'><p class='menu_text'>$menu2_users</p></a></li>";
+		}
+		if ($master == "del_user.php")
+		{
+			echo "<li id='current'><a href='del_user.php'><p class='menu_text'>$menu3_userdel</p></a></li>";
+		}
+		else
+		{
+			echo "<li><a href='del_user.php'><p class='menu_text'>$menu3_userdel</p></a></li>";
+		}
+		if ($master == "daemon_control.php")
+		{
+			echo "<li id='current'><a href='daemon_control.php'><p class='menu_text'>$menu4_daemon</p></a></li>";
+		}
+		else
+		{
+			echo "<li><a href='daemon_control.php'><p class='menu_text'>$menu4_daemon</p></a></li>$nbsp";
+		}
+		if ($master == "webui_users.php")
+		{
+			echo "<li id='current'><a href='webui_users.php'><p class='menu_text'>$menu5_webuictl</p></a></li>";
+		}
+		else
+		{
+			echo "<li><a href='webui_users.php'><p class='menu_text'>$menu5_webuictl</p></a></li>$nbsp";
+		}
+		?>
+	</ul>
 </div>

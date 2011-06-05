@@ -2,13 +2,27 @@
 $master = "del_user.php";
 include ("blocks/lock.php");
 include ("blocks/db_connect.php"); /*Подлкючаемся к базе*/
-if (isset ($_GET['id'])) {$id = $_GET['id'];}
+$user = $_SERVER['PHP_AUTH_USER'];
+$info = '';
+$get_user_language = FALSE;
+$get_user_language = mysql_query("SELECT language FROM userlist WHERE user='$user';");
+if (!$get_user_language) {
+	if (($err = mysql_errno()) == 1054) {
+		$info = "<p align=\"center\" class=\"table_error\">Your version of Pure-FTPd WebUI users table is not currently supported by current version, please upgrade your database to use miltilanguage support.</p>";
+		include("lang/english.php");
+	}
+}
+else {
+	$language_row = mysql_fetch_array ($get_user_language);
+	$language = $language_row['language'];
+	include("lang/$language.php");
+}
 
 echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"");
 echo("\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
 echo("<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en-US\" xml:lang=\"en-US\">");
 echo("<head>");
-echo("<title> Удаление пользователей </title>");
+echo("<title>$del_title</title>");
 echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" />");
 ?>
 <link rel='shortcut icon' href='img/favicon.ico' />
@@ -29,8 +43,8 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
     <tr>
       <? include("blocks/menu.php"); ?>
     </tr>
-</table><br><br>
-                 <p class="text_title">Выберите пользователя для удаления</p>
+</table></br><? echo("$info"); ?></br>
+				<? echo("<p class=\"text_title\">$del_selecttitle</p>"); ?>
                  <form action="drop_user.php" method="post">
                  <?php
                    $result = mysql_query ("SELECT User,id FROM ftpd");
@@ -41,8 +55,8 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
                     }
                    while ($myrow = mysql_fetch_array ($result));
                   ?>
-                  <p><input name="submit" type="submit" value="Удалить пользователя"></p>
-                  </form><br><br>
+				<? echo("<p><input name=\"submit\" type=\"submit\" value=\"$del_button\"></p>"); ?>
+                  </form></br></br>
                </td>
             </tr>
           </table>

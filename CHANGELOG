@@ -1,4 +1,13 @@
-2011.04.06 Beta 0.1.0
+2011.06.05 Beta 0.1.1
++++++++++++++++++++++
+1. Multilanguage support added.
+2. English language added.
+3. Installer now in English.
+4. Pure-FTPd users table changed (added field 'language').
+5. Added interface to create/delete/change Pure-FTPd WebUI administrators accounts.
+
+2011.06.04 Beta 0.1.0
++++++++++++++++++++++
 1. Added web based installation. It's create MySQL database, MySQL user for Pure-FTPd WebUI,
 Pure-FTPd Users table, Pure-FTPd WebUI users table, Pure-FTPd WebUI config.
 2. Some interface changes.
