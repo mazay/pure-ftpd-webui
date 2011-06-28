@@ -291,7 +291,7 @@ echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://
 echo("
 	<tr valign=\"bottom\">
 		<td>
-			<p class=\"link\"><a href=\"http://mazay.home.dyndns.org/redmine/projects/pure-ftpd-webui/wiki\">Pure-FTPd WebUI Wiki</a></p>
+			<p class=\"link\"><a href=\"http://pure-ftpd-webui.org/projects/pure-ftpd-webui/wiki\">Pure-FTPd WebUI Wiki</a></p>
 		</td>
 	</tr>
 	</td>
