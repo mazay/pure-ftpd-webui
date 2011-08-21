@@ -116,7 +116,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 						echo("<p>$result</p>");}
 
 					// Если ни один вариант не верен - выдаём ошибку
-					else {echo("<p><strong>Передана неверная команда демону Pure-FTPd</strong></p>");}
+					else {echo("<p><strong>$dc_wrongcommand</strong></p>");}
 
 					echo "</br>
 							<form method='post' action='$PHP_SELF'>

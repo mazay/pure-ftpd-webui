@@ -1,4 +1,4 @@
-<?
+<?php
 // Menu
 $menu1_act = "Active users";
 $menu2_users = "User management";
@@ -69,7 +69,7 @@ $dc_confeditsavebutton = "Save";
 $dc_confeditsuccess = "Successfully saved changes, restart Pure-FTPd daemon to changes take effect";
 $dc_confeditnorights = "Can't save configuration file, no permissions to write in file";
 $dc_daemoncontrol = "Daemon control";
-$dc_wrongcommand = "Gived wrong command to Pure-FTPd daemon";
+$dc_wrongcommand = "You gived a wrong command to Pure-FTPd daemon";
 $dc_wrongcommandback = "Back";
 $dc_dctitle = "Pure-FTPd daemon control";
 $dc_dcperformbutton = "Perform";

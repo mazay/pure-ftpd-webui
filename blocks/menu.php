@@ -31,7 +31,7 @@
 		}
 		else
 		{
-			echo "<li><a href='daemon_control.php'><p class='menu_text'>$menu4_daemon</p></a></li>$nbsp";
+			echo "<li><a href='daemon_control.php'><p class='menu_text'>$menu4_daemon</p></a></li>";
 		}
 		if ($master == "webui_users.php")
 		{
@@ -39,7 +39,7 @@
 		}
 		else
 		{
-			echo "<li><a href='webui_users.php'><p class='menu_text'>$menu5_webuictl</p></a></li>$nbsp";
+			echo "<li><a href='webui_users.php'><p class='menu_text'>$menu5_webuictl</p></a></li>";
 		}
 		?>
 	</ul>
