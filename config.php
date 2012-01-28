@@ -1,4 +1,4 @@
-Pure-FTPd WebUI configuration file
+# Pure-FTPd WebUI configuration file
 
 <?php
 
