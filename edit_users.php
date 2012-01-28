@@ -205,7 +205,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 							// Если изменён пароль пользователя, вносим изменения в базу
 							if (isset ($Password)) {$Password = md5($Password);
 								if (($Password != $array[Password]) && isset ($id)) {
-									$result = mysql_query ("UPDATE ftpd SET Password=md5('$Password') WHERE id='$id'");
+									$result = mysql_query ("UPDATE ftpd SET Password='$Password' WHERE id='$id'");
 									if ($result == 'true') {echo "<p><strong>$um_edit_passwdok</strong></p>";}
 									else {echo "<p><strong>$um_edit_passwderror</strong></p>";}}
 							}
