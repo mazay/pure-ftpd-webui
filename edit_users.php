@@ -24,7 +24,7 @@ echo("\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
 echo("<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en-US\" xml:lang=\"en-US\">");
 echo("<head>");
 echo("<title>$um_title</title>");
-echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" />");
+echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />");
 ?>
 <link rel='shortcut icon' href='img/favicon.ico' />
 <link href="media/css/stile.css" rel="StyleSheet" type="text/css">
@@ -98,6 +98,16 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 									<label>$um_userform_permip</br>
 									<INPUT type='text' name='ipaccess' id='ipaccess'>
 									</label>
+								</p>
+								<p>
+									<label>$um_userform_quotasize</br>
+									<INPUT type='text' name='quotasize' id='quotasize'>
+									</label>
+								</p>
+								<p>
+									<label>$um_userform_quotafiles</br>
+									<INPUT type='text' name='quotafiles' id='quotafiles'>
+									</label>
 								</p></br>
 								<p>
 									<label>
@@ -124,6 +134,16 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 						if (isset ($_POST['ULBandwidth'])) {$ULBandwidth = $_POST['ULBandwidth']; if ($ULBandwidth == '') {unset ($ULBandwidth);}}
 						if (isset ($_POST['DLBandwidth'])) {$DLBandwidth = $_POST['DLBandwidth']; if ($DLBandwidth == '') {unset ($DLBandwidth);}}
 						if (isset ($_POST['ipaccess'])) {$ipaccess = $_POST['ipaccess']; if ($ipaccess == '') {unset ($ipaccess);}}
+						if (isset ($_POST['quotasize'])) {
+							$quotasize = $_POST['quotasize']; if ($quotasize == '') {
+								unset ($quotasize);
+							}
+						}
+						if (isset ($_POST['quotafiles'])) {
+							$quotafiles = $_POST['quotafiles']; if ($quotafiles == '') {
+								unset ($quotafiles);
+							}
+						}
 
 						// Если папка не была задана - выставляем значение по умолчанию
 						if ($Dir == '') {
@@ -140,10 +160,20 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 						// Если разрешённый IP-адрес не был задан - выставляем значение по умолчанию
 						if ($ipaccess == '') {
 							$ipaccess = '*';}
+						
+						// Если размер квоты не был задан - выставляем значение по умолчанию
+						if ($quotasize == '') {
+							$quotasize = '0';
+						}
+
+						// Если размер квоты не был задан - выставляем значение по умолчанию
+						if ($quotafiles == '') {
+							$quotafiles = '0';
+						}
 
 						// Если все нужные поля заполнены, добавляем пользователя в базу pureftpd
-						if (isset ($User) && isset($status) && isset($Password) && isset ($Dir) && isset ($DLBandwidth) && isset ($ULBandwidth) && isset ($_POST['ipaccess'])) {
-							$result = mysql_query ("INSERT INTO ftpd (User,status,Password,Dir,ULBandwidth,DLBandwidth,ipaccess) VALUES ('$User','$status',md5('$Password'),'$Dir','$ULBandwidth','$DLBandwidth','$ipaccess')");
+						if (isset ($User) && isset($status) && isset($Password) && isset ($Dir) && isset ($DLBandwidth) && isset ($ULBandwidth) && isset ($ipaccess) && isset ($quotasize) && isset ($quotafiles)) {
+							$result = mysql_query ("INSERT INTO ftpd (User,status,Password,Dir,ULBandwidth,DLBandwidth,ipaccess,QuotaSize,QuotaFiles) VALUES ('$User','$status',md5('$Password'),'$Dir','$ULBandwidth','$DLBandwidth','$ipaccess','$quotasize','$quotafiles')");
 							if ($result == 'true') {echo "<p><strong>$um_add_presultok</strong></p>";}
 							else {echo "<p><strong>$um_add_presulterror</strong></p>";}
 						}
@@ -172,6 +202,16 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 						if (isset ($_POST['ULBandwidth'])) {$ULBandwidth = $_POST['ULBandwidth']; if ($ULBandwidth == '') {unset ($ULBandwidth);}}
 						if (isset ($_POST['DLBandwidth'])) {$DLBandwidth = $_POST['DLBandwidth']; if ($DLBandwidth == '') {unset ($DLBandwidth);}}
 						if (isset ($_POST['ipaccess'])) {$ipaccess = $_POST['ipaccess']; if ($ipaccess == '') {unset ($ipaccess);}}
+						if (isset ($_POST['quotasize'])) {
+							$quotasize = $_POST['quotasize']; if ($quotasize == '') {
+								unset ($quotasize);
+							}
+						}
+						if (isset ($_POST['quotafiles'])) {
+							$quotafiles = $_POST['quotafiles']; if ($quotafiles == '') {
+								unset ($quotafiles);
+							}
+						}
 						if (isset ($_POST['id'])) {$id = $_POST['id']; if ($id == '') {unset ($id);}}
 
 						// Запрашиваем из БД настройки пользователя
@@ -179,7 +219,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 						$array = mysql_fetch_array ($result);
 
 						// Проверяем были ли внесены какие-то изменения
-						if (($Dir != $array[Dir]) || ($User != $array[User]) || ($status != $array[status]) || (isset ($Password)) || ($ULBandwidth != $array[ULBandwidth]) || ($DLBandwidth != $array[DLBandwidth]) || ($ipaccess != $array[ipaccess])) {
+						if (($Dir != $array[Dir]) || ($User != $array[User]) || ($status != $array[status]) || (isset ($Password)) || ($ULBandwidth != $array[ULBandwidth]) || ($DLBandwidth != $array[DLBandwidth]) || ($ipaccess != $array[ipaccess]) || ($quotasize != $array[QuotaSize]) || ($quotafiles != $array[QuotaFiles])) {
 
 							// Если изменена папка пользователя, вносим изменения в базу
 							if (($Dir != $array[Dir]) && isset ($id)) {
@@ -228,6 +268,23 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 								$result = mysql_query ("UPDATE ftpd SET ipaccess='$ipaccess' WHERE id='$id'");
 								if ($result == 'true') {echo "<p><strong>$um_edit_permipok</strong></p>";}
 								else {echo "<p><strong>$um_edit_permiperror</strong></p>";}
+							}
+							// Если изменён размер квоты, вносим изменения в базу
+							if (($quotasize != $array[QuotaSize]) && isset ($id)) {
+								$result = mysql_query ("UPDATE ftpd SET QuotaSize='$quotasize' WHERE id='$id'");
+								if ($result == 'true') {
+									echo "<p><strong>$um_edit_quotasizeok</strong></p>";
+							}
+							else {echo "<p><strong>$um_edit_quotasizeerror</strong></p>";}
+							}
+							// Если изменён размер квоты, вносим изменения в базу
+							if (($quotafiles != $array[QuotaFiles]) && isset ($id)) {
+								$result = mysql_query ("UPDATE ftpd SET QuotaFiles='$quotafiles' WHERE id='$id'");
+								if ($result == 'true') {
+									echo "<p><strong>$um_edit_quotafilesok</strong></p>";
+							}
+							else {echo "<p><strong>$um_edit_quotafileserror</strong></p>";
+							}
 							}
 						}
 						else {echo"<p><strong>$um_edit_nochanges</strong></p>";}
@@ -323,6 +380,16 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" /
 								<p>
 									<labe>$um_userform_permip</br>
 									<INPUT value="$myrow[ipaccess]" type="text" name="ipaccess" id="ipaccess">
+									</label>
+								</p>
+								<p>
+									<labe>$um_userform_quotasize</br>
+									<INPUT value="$myrow[QuotaSize]" type="text" name="quotasize" id="quotasize">
+									</label>
+								</p>
+								<p>
+									<labe>$um_userform_quotafiles</br>
+									<INPUT value="$myrow[QuotaFiles]" type="text" name="quotafiles" id="quotafiles">
 									</label>
 								</p></br>
 									<INPUT name="id" type="hidden" value="$myrow[id]">

@@ -1,3 +1,9 @@
+2012.04.06 0.1.2a
++++++++++++++++++++++
+1. Added function for check database connection (ticket #1).
+2. Fixed charset (ticket #2).
+3. Added quota set functionality.
+
 2011.06.05 Beta 0.1.1
 +++++++++++++++++++++
 1. Multilanguage support added.

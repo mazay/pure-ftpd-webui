@@ -5,7 +5,7 @@ echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://
 <HTML xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en-US\" xml:lang=\"en-US\">
 <HEAD>
 <title>Pure-FTPd WebUI installation</title>
-<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" />
+<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />
 <link rel='shortcut icon' href='INSTALL/media/img/favicon.ico' />
 <link href=\"INSTALL/media/stile.css\" rel=\"StyleSheet\" type=\"text/css\">
 </head>

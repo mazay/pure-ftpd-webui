@@ -23,7 +23,7 @@ echo("\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
 echo("<HTML xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en-US\" xml:lang=\"en-US\">");
 echo("<HEAD>");
 echo("<title>$ua_title</title>");
-echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" />");
+echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />");
 echo("<meta http-equiv='refresh' content='30'/>");
 ?>
 <link rel='shortcut icon' href='img/favicon.ico' />

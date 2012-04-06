@@ -23,7 +23,7 @@ echo("\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
 echo("<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en-US\" xml:lang=\"en-US\">");
 echo("<head>");
 echo("<title>$dc_title</title>");
-echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset='UTF-8'\" />");
+echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />");
 ?>
 <link rel='shortcut icon' href='img/favicon.ico' />
 <link href="media/css/stile.css" rel="StyleSheet" type="text/css">
