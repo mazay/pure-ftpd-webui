@@ -10,12 +10,16 @@ $get_user_language = mysql_query("SELECT language FROM userlist WHERE user='$use
 if (!$get_user_language) {
 	if (($err = mysql_errno()) == 1054) {
 		$info = "<p align=\"center\" class=\"table_error\">Your version of Pure-FTPd WebUI users table is not currently supported by current version, please upgrade your database to use miltilanguage support.</p>";
-		include("lang/english.php");
 	}
+	$language = "english";
+	include("lang/english.php");
 }
 else {
 	$language_row = mysql_fetch_array ($get_user_language);
 	$language = $language_row['language'];
+	if ($language == '') {
+		$language = "english";
+	}
 	include("lang/$language.php");
 }
 

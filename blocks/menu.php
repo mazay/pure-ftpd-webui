@@ -33,13 +33,21 @@
 		{
 			echo "<li><a href='daemon_control.php'><p class='menu_text'>$menu4_daemon</p></a></li>";
 		}
-		if ($master == "webui_users.php")
+		if ($master == "edit_settings.php")
 		{
-			echo "<li id='current'><a href='webui_users.php'><p class='menu_text'>$menu5_webuictl</p></a></li>";
+			echo "<li id='current'><a href='edit_settings.php'><p class='menu_text'>$menu5_settings</p></a></li>";
 		}
 		else
 		{
-			echo "<li><a href='webui_users.php'><p class='menu_text'>$menu5_webuictl</p></a></li>";
+		echo "<li><a href='edit_settings.php'><p class='menu_text'>$menu5_settings</p></a></li>";
+				}
+		if ($master == "webui_users.php")
+		{
+			echo "<li id='current'><a href='webui_users.php'><p class='menu_text'>$menu6_webuictl</p></a></li>";
+		}
+		else
+		{
+			echo "<li><a href='webui_users.php'><p class='menu_text'>$menu6_webuictl</p></a></li>";
 		}
 		?>
 	</ul>

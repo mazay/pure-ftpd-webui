@@ -1,5 +1,6 @@
 <?php
 $master = "index.php";
+include ("blocks/default.php");
 include ("blocks/lock.php");
 $user = $_SERVER['PHP_AUTH_USER'];
 include ("blocks/db_connect.php");
@@ -9,12 +10,16 @@ $get_user_language = mysql_query("SELECT language FROM userlist WHERE user='$use
 if (!$get_user_language) {
 	if (($err = mysql_errno()) == 1054) {
 		$info = "<p align=\"center\" class=\"table_error\">Your version of Pure-FTPd WebUI users table is not currently supported by current version, please upgrade your database to use miltilanguage support.</p>";
-		include("lang/english.php");
 	}
+	$language = "english";
+	include("lang/english.php");
 }
 else {
 	$language_row = mysql_fetch_array ($get_user_language);
 	$language = $language_row['language'];
+	if ($language == '') {
+		$language = "english";
+	}
 	include("lang/$language.php");
 }
 
@@ -79,7 +84,7 @@ echo("<meta http-equiv='refresh' content='30'/>");
 				</thead><tbody>");
 
 		// Активные пользователи
-		$result = shell_exec("sudo /etc/init.d/pure-ftpd status");
+		$result = shell_exec("sudo $pureftpd_init_script_path status");
 		$array = explode("\n", $result);
 		foreach ($array as $users) {
 		if (($users != "") and (substr($users, 0, 3) != "+--") and (substr($users, 2, 3) != "PID")) {

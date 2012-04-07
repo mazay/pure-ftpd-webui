@@ -1,5 +1,6 @@
 <?php
 $master = "edit_users.php";
+include ("blocks/default.php");
 include ("blocks/lock.php");
 include ("blocks/db_connect.php"); /*Подключаемся к базе*/
 if (isset ($_GET['id'])) {$id = $_GET['id'];}
@@ -10,12 +11,16 @@ $get_user_language = mysql_query("SELECT language FROM userlist WHERE user='$use
 if (!$get_user_language) {
 	if (($err = mysql_errno()) == 1054) {
 		$info = "<p align=\"center\" class=\"table_error\">Your version of Pure-FTPd WebUI users table is not currently supported by current version, please upgrade your database to use miltilanguage support.</p>";
-		include("lang/english.php");
 	}
+	$language = "english";
+	include("lang/english.php");
 }
 else {
 	$language_row = mysql_fetch_array ($get_user_language);
 	$language = $language_row['language'];
+	if ($language == '') {
+		$language = "english";
+	}
 	include("lang/$language.php");
 }
 
@@ -81,32 +86,32 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 								</p>
 								<p>
 									<label>$um_userform_folder</br>
-									<INPUT type='text' name='Dir' id='Dir'>
+									<INPUT type='text' name='Dir' id='Dir' value='$ftp_dir'>
 									</label>
 								</p>
 								<p>
 									<label>$um_userform_ullimit</br>
-									<INPUT type='text' name='ULBandwidth' id='ULBandwidth'>
+									<INPUT type='text' name='ULBandwidth' id='ULBandwidth' value='$upload_speed'>
 									</label>
 								</p>
 								<p>
 									<label>$um_userform_dllimit</br>
-									<INPUT type='text' name='DLBandwidth' id='DLBandwidth'>
+									<INPUT type='text' name='DLBandwidth' id='DLBandwidth' value='$download_speed'>
 									</label>
 								</p>
 								<p>
 									<label>$um_userform_permip</br>
-									<INPUT type='text' name='ipaccess' id='ipaccess'>
+									<INPUT type='text' name='ipaccess' id='ipaccess' value='$permitted_ip'>
 									</label>
 								</p>
 								<p>
 									<label>$um_userform_quotasize</br>
-									<INPUT type='text' name='quotasize' id='quotasize'>
+									<INPUT type='text' name='quotasize' id='quotasize' value='$quota_size'>
 									</label>
 								</p>
 								<p>
 									<label>$um_userform_quotafiles</br>
-									<INPUT type='text' name='quotafiles' id='quotafiles'>
+									<INPUT type='text' name='quotafiles' id='quotafiles' value='$quota_files'>
 									</label>
 								</p></br>
 								<p>
@@ -147,28 +152,28 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 
 						// Если папка не была задана - выставляем значение по умолчанию
 						if ($Dir == '') {
-							$Dir = '/media/FTP';}
+							$Dir = $ftp_dir;}
 
 						// Если ограничение скорости аплода не было задано - выставляем значение по умолчанию
 						if ($ULBandwidth == '') {
-							$ULBandwidth = '0';}
+							$ULBandwidth = $upload_speed;}
 
 						// Если ограничение скорости даунлода не было задано - выставляем значение по умолчанию
 						if ($DLBandwidth == '') {
-							$DLBandwidth = '0';}
+							$DLBandwidth = $download_speed;}
 
 						// Если разрешённый IP-адрес не был задан - выставляем значение по умолчанию
 						if ($ipaccess == '') {
-							$ipaccess = '*';}
+							$ipaccess = $permitted_ip;}
 						
 						// Если размер квоты не был задан - выставляем значение по умолчанию
 						if ($quotasize == '') {
-							$quotasize = '0';
+							$quotasize = $quota_size;
 						}
 
 						// Если размер квоты не был задан - выставляем значение по умолчанию
 						if ($quotafiles == '') {
-							$quotafiles = '0';
+							$quotafiles = $quota_files;
 						}
 
 						// Если все нужные поля заполнены, добавляем пользователя в базу pureftpd
@@ -312,6 +317,8 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 										<th>$um_t_th4</th>
 										<th>$um_t_th5</th>
 										<th>$um_t_th6</th>
+										<th>$um_t_th7</th>
+										<th>$um_t_th8</th>
 									</tr>
 								</thead><tbody>");
 						$result = mysql_query ("SELECT * FROM ftpd");
@@ -325,6 +332,8 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 										<td align='center'>$myrow[ULBandwidth]</td>
 										<td align='center'>$myrow[DLBandwidth]</td>
 										<td align='center'>$myrow[ipaccess]</td>
+										<td align='center'>$myrow[QuotaSize]</td>
+										<td align='center'>$myrow[QuotaFiles]</td>
 									</tr>",$myrow ["id"],$myrow ["User"]);
 						}
 					while ($myrow = mysql_fetch_array ($result));

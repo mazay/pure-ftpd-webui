@@ -1,3 +1,9 @@
+2012.04.07 0.2.0
++++++++++++++++++++++
+1. Added function to set default setting, such as FTP directory, ul/dl speed limit, etc.
+2. Added configuration file.
+3. Several bug fixes.
+
 2012.04.06 0.1.2a
 +++++++++++++++++++++
 1. Added function for check database connection (ticket #1).

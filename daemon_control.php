@@ -1,5 +1,6 @@
 <?php
 $master = "daemon_control.php";
+include ("blocks/default.php");
 include ("blocks/lock.php");
 include ("blocks/db_connect.php"); /*Подключаемся к базе*/
 $user = $_SERVER['PHP_AUTH_USER'];
@@ -9,12 +10,16 @@ $get_user_language = mysql_query("SELECT language FROM userlist WHERE user='$use
 if (!$get_user_language) {
 	if (($err = mysql_errno()) == 1054) {
 		$info = "<p align=\"center\" class=\"table_error\">Your version of Pure-FTPd WebUI users table is not currently supported by current version, please upgrade your database to use miltilanguage support.</p>";
-		include("lang/english.php");
 	}
+	$language = "english";
+	include("lang/english.php");
 }
 else {
 	$language_row = mysql_fetch_array ($get_user_language);
 	$language = $language_row['language'];
+	if ($language == '') {
+		$language = "english";
+	}
 	include("lang/$language.php");
 }
 
@@ -50,7 +55,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 				// Эта часть используется, если была нажата кнопка "Править конфиг"
 				if($_POST['edit']) {
 					// Путь к файлу
-					$filename = "/etc/pure-ftpd/pure-ftpd.conf";
+					$filename = "$pureftpd_conf_path";
 					// Открываем файл для чтения
 					$handle = fopen($filename, "r");
 					// Вытаскиваем содержимое файла
@@ -100,19 +105,19 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 
 					// Если была дана команда "старт" - стартуем демона
 					if ($daemon_ctl == 'start') {
-						$result = shell_exec("sudo /etc/init.d/pure-ftpd start");
+						$result = shell_exec("sudo $pureftpd_init_script_path start");
 						echo("<p>$result</p>");}
 
 					// Если была дана комнда "стоп" - останавливаем демона
 					elseif ($daemon_ctl == 'stop') {
-						$result = shell_exec("sudo /etc/init.d/pure-ftpd stop");
+						$result = shell_exec("sudo $pureftpd_init_script_path stop");
 						echo("<p>$result</p>");}
 
 					// Если была дана команда "рестарт" - рестартуем демона
 					elseif ($daemon_ctl == 'restart') {
-						$result = shell_exec("sudo /etc/init.d/pure-ftpd stop");
+						$result = shell_exec("sudo $pureftpd_init_script_path stop");
 						echo("<p>$result</p>");
-						$result = shell_exec("sudo /etc/init.d/pure-ftpd start");
+						$result = shell_exec("sudo $pureftpd_init_script_path start");
 						echo("<p>$result</p>");}
 
 					// Если ни один вариант не верен - выдаём ошибку
