@@ -39,18 +39,18 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 <body id="dt_example" class="ex_highlight_row">
 <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" class="main_border">
   <tbody>
-<? include("blocks/header.php"); ?>
+<?php include("blocks/header.php"); ?>
   <tr>
       <td><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
          <tr>
                <td valign="top">
 <table width="100%" align="center" border="0" cellpadding="0" cellspacing="0">
     <tr>
-      <? include("blocks/menu.php"); ?>
+      <?php include("blocks/menu.php"); ?>
     </tr>
-</table></br><? echo("$info</br>");
+</table></br><?php echo("$info</br>");
 			if (isset ($_POST['save'])) {
-				if (($_POST['ftp_dir'] != $ftp_dir) || ($_POST['upload_speed'] != $upload_speed) || ($_POST['download_speed'] != $download_speed) || ($_POST['quota_size'] != $quota_size) || ($_POST['quota_files'] != $quota_files) || ($_POST['permitted_ip'] != $permitted_ip) || ($_POST['pureftpd_conf_path'] != $pureftpd_conf_path) || ($_POST['pureftpd_init_script_path'] != $pureftpd_init_script_path)) {
+				if (($_POST['ftp_dir'] != $ftp_dir) || ($_POST['upload_speed'] != $upload_speed) || ($_POST['download_speed'] != $download_speed) || ($_POST['quota_size'] != $quota_size) || ($_POST['quota_files'] != $quota_files) || ($_POST['permitted_ip'] != $permitted_ip) || ($_POST['pureftpd_conf_path'] != $pureftpd_conf_path) || ($_POST['pureftpd_init_script_path'] != $pureftpd_init_script_path) || ($_POST['pureftpwho_path'] != $pureftpwho_path)) {
 					if (isset ($_POST['ftp_dir'])) {
 						if ($_POST['ftp_dir'] != $ftp_dir) {
 							$ftp_dir_ = $_POST['ftp_dir'];
@@ -147,6 +147,18 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 							}
 						}
 					}
+					if (isset($_POST['pureftpwho_path'])) {
+						if ($_POST['pureftpwho_path'] != $pureftpwho_path) {
+							$pureftpwho_path = $_POST['pureftpwho_path'];
+							$result = mysql_query ("UPDATE settings SET value='$pureftpwho_path' WHERE name='pureftpwho_path'");
+							if ($result == 'true') {
+								echo "<p><strong>$settings_pureftpwho_path_ok</strong></p>";
+							}
+							else {
+								echo "<p><strong>$settings_pureftpwho_path_error</strong></p>";
+							}
+						}
+					}
 				}
 				else {
 					echo"<p><strong>$settings_nochanges</strong></p>";
@@ -197,6 +209,11 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 							</label>
 						</p>
 						<p>
+							<label>$settings_pureftpwho_path</br>
+							<input type=\"text\" name=\"pureftpwho_path\" id=\"pureftpwho_path\" value=\"$pureftpwho_path\" size=\"40\">
+							</label>
+						</p>
+						<p>
 							<label>
 							<INPUT type=\"submit\" name=\"save\" value=\"$settings_save_button\" size=\"40\">
 							</label>
@@ -208,7 +225,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
           </table>
         </td>
        </tr>
-<? include("blocks/footer.php"); ?>
+<?php include("blocks/footer.php"); ?>
   </tbody>
 </table>
 </body>

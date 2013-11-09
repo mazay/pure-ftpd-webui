@@ -204,7 +204,7 @@ echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://
 					$mysql_webui_passwd = $_POST['mysql_webui_passwd'];
 					$webui_config = "config.php";
 					$fh = fopen($webui_config, 'w') or die("can't open file");
-					$stringData = "<?\n";
+					$stringData = "<?php\n";
 					fwrite($fh, $stringData);
 					$stringData = "\$mysql_host = \"$mysql_host\";\n\$mysql_webui_user = \"$mysql_webui_user\";\n\$mysql_webui_passwd = \"$mysql_webui_passwd\";\n\$mysql_database = \"$mysql_database\";\n";
 					fwrite($fh, $stringData);

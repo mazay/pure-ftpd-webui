@@ -127,6 +127,8 @@ $settings_pureftpd_conf_path_ok = "Путь к конфигурационном�
 $settings_pureftpd_conf_path_error = "ОШИБКА: $result";
 $settings_pureftpd_init_script_path_ok = "Путь к инит скрипту Pure-FTPd успешно изменён";
 $settings_pureftpd_init_script_path_error = "ОШИБКА: $result";
+$settings_pureftpwho_path_ok = "Путь к скрипту Pure-FTPWHO успешно изменён";
+$settings_pureftpwho_path_error = "ОШИБКА: $result";
 $settings_title2 = "Настройки Pure-FTPd WebUI";
 $settings_ftp_dir = "Значение по умолчанию для FTP директории";
 $settings_upload_speed = "Значение по умолчанию для ограничения скорости загрузки на сервер (KB/s)";
@@ -136,6 +138,7 @@ $settings_quota_files = "Значение по умолчанию для кво�
 $settings_permitted_ip = "Значение по умолчанию для разрешённого IP-адреса (* - любой IP-адрес)";
 $settings_pureftpd_conf_path = "Путь к конфигурационному файлу Pure-FTPd";
 $settings_pureftpd_init_script_path = "Путь к инит скрипту Pure-FTPd";
+$settings_pureftpwho_path = "Путь к скрипту Pure-FTPWHO (статистика)";
 $settings_save_button = "Сохранить настройки";
 $settings_nochanges = "Вы не вносили изменений";
 ?>

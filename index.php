@@ -38,7 +38,7 @@ echo("<meta http-equiv='refresh' content='30'/>");
 <link href="media/css/jquery-ui-1.7.2.custom.css" rel="StyleSheet" type="text/css">
 <script type="text/javascript" language="javascript" src="media/js/jquery.js"></script>
 <script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.js"></script>
-<? echo("
+<?php echo("
 <script type=\"text/javascript\" charset=\"utf-8\">
 			$(document).ready(function() {
 				$('#example').dataTable( {
@@ -55,18 +55,18 @@ echo("<meta http-equiv='refresh' content='30'/>");
 <body id="dt_example" class="ex_highlight_row">
 <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" class="main_border">
   <tbody>
-<? include("blocks/header.php"); ?>
+<?php include("blocks/header.php"); ?>
   <tr>
       <td><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
          <tr>
                <td valign="top">
 <table width="100%" align="center" border="0" cellpadding="0" cellspacing="0">
     <tr>
-      <? include("blocks/menu.php"); ?>
+      <?php include("blocks/menu.php"); ?>
     </tr>
-</table></br><? echo("$info"); ?></br></br></br>
+</table></br><?php echo("$info"); ?></br></br></br>
 
-	<? echo("<p class=\"text_title\" align=\"center\">$ua_t_title</p>"); ?>
+	<?php echo("<p class=\"text_title\" align=\"center\">$ua_t_title</p>"); ?>
 
 	<div id="container">
 
@@ -84,7 +84,7 @@ echo("<meta http-equiv='refresh' content='30'/>");
 				</thead><tbody>");
 
 		// Активные пользователи
-		$result = shell_exec("sudo $pureftpd_init_script_path status");
+		$result = shell_exec("$pureftpwho_path");
 		$array = explode("\n", $result);
 		foreach ($array as $users) {
 		if (($users != "") and (substr($users, 0, 3) != "+--") and (substr($users, 2, 3) != "PID")) {
@@ -109,7 +109,7 @@ echo("<meta http-equiv='refresh' content='30'/>");
           </table>
         </td>
        </tr>
-<? include("blocks/footer.php"); ?>
+<?php include("blocks/footer.php"); ?>
   </tbody>
 </table>
 </body>

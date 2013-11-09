@@ -33,4 +33,8 @@ $result = mysql_query ("SELECT * FROM settings WHERE name='pureftpd_init_script_
 $array = mysql_fetch_array ($result);
 $pureftpd_init_script_path = $array["value"];
 
+$result = mysql_query ("SELECT * FROM settings WHERE name='pureftpwho_path'");
+$array = mysql_fetch_array ($result);
+$pureftpwho_path = $array["value"];
+
 ?>

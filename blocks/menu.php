@@ -39,8 +39,8 @@
 		}
 		else
 		{
-		echo "<li><a href='edit_settings.php'><p class='menu_text'>$menu5_settings</p></a></li>";
-				}
+			echo "<li><a href='edit_settings.php'><p class='menu_text'>$menu5_settings</p></a></li>";
+		}
 		if ($master == "webui_users.php")
 		{
 			echo "<li id='current'><a href='webui_users.php'><p class='menu_text'>$menu6_webuictl</p></a></li>";

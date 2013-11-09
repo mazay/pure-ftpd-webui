@@ -38,7 +38,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 <link href="media/css/jquery-ui-1.7.2.custom.css" rel="StyleSheet" type="text/css">
 <script type="text/javascript" language="javascript" src="media/js/jquery.js"></script>
 <script type="text/javascript" language="javascript" src="media/js/jquery.dataTables.js"></script>
-<? echo("
+<?php echo("
 <script type=\"text/javascript\" charset=\"utf-8\">
             $(document).ready(function() {
                 $('#users_table').dataTable( {
@@ -54,16 +54,16 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 <body id="dt_example" class="ex_highlight_row">
 <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" class="main_border">
   <tbody>
-<? include("blocks/header.php"); ?>
+<?php include("blocks/header.php"); ?>
   <tr>
       <td><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
          <tr>
                <td valign="top">
 <table width="100%" align="center" border="0" cellpadding="0" cellspacing="0">
     <tr>
-      <? include("blocks/menu.php"); ?>
+      <?php include("blocks/menu.php"); ?>
     </tr>
-		</table></br><? echo("$info"); ?></br>
+		</table></br><?php echo("$info"); ?></br>
 				<?php
 					// Эта часть используется, если была нажата кнопка "Добавить пользователя"
 					if($_POST['add_user']) {
@@ -76,7 +76,9 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 								</p>
 								<p>
 									<label>$um_userform_status</br>
-									<INPUT type='text' name='status' id='status'>
+									<select name='status'>
+									<option>'0'</option>
+									<option>'1'</option>
 									</label>
 								</p>
 								<p>
@@ -419,7 +421,7 @@ HERE;
 				?>
 		</td></tr></table>
 	</td></tr>
-<? include("blocks/footer.php"); ?>
+<?php include("blocks/footer.php"); ?>
 </tbody></table>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<?
+<?php
 include ("config.php");
 $db = FALSE;
 $db = mysql_connect ("$mysql_host", "$mysql_webui_user", "$mysql_webui_passwd");

@@ -127,6 +127,8 @@ $settings_pureftpd_conf_path_ok = "Pure-FTPd config file path successfully chang
 $settings_pureftpd_conf_path_error = "ERROR: $result";
 $settings_pureftpd_init_script_path_ok = "Pure-FTPd init script path successfully changed";
 $settings_pureftpd_init_script_path_error = "ERROR: $result";
+$settings_pureftpwho_path_ok = "Pure-FTPWHO script path successfully changed";
+$settings_pureftpwho_path_error = "ERROR: $result";
 $settings_title2 = "Pure-FTPd WebUI settings";
 $settings_ftp_dir = "Default FTP directory";
 $settings_upload_speed = "Default upload speed limit (KB/s)";
@@ -136,6 +138,7 @@ $settings_quota_files = "Default quota size for downloaded/uploaded files count"
 $settings_permitted_ip = "Default permitted IP (* - any IP-address)";
 $settings_pureftpd_conf_path = "Pure-FTPd config file path";
 $settings_pureftpd_init_script_path = "Pure-FTPd init script path";
+$settings_pureftpwho_path = "Pure-FTPWHO script path (stats)";
 $settings_save_button = "Save settings";
 $settings_nochanges = "You didn't make any changes";
 ?>

@@ -38,17 +38,17 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 <body id="dt_example" class="ex_highlight_row">
 <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" class="main_border">
   <tbody>
-<? include("blocks/header.php"); ?>
+<?php include("blocks/header.php"); ?>
   <tr>
       <td><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
          <tr>
                <td valign="top">
 <table width="100%" align="center" border="0" cellpadding="0" cellspacing="0">
     <tr>
-      <? include("blocks/menu.php"); ?>
+      <?php include("blocks/menu.php"); ?>
     </tr>
-</table></br><? echo("$info"); ?></br>
-				<? echo("<p class=\"text_title\">$del_selecttitle</p>"); ?>
+</table></br><?php echo("$info"); ?></br>
+				<?php echo("<p class=\"text_title\">$del_selecttitle</p>"); ?>
                  <form action="drop_user.php" method="post">
                  <?php
                    $result = mysql_query ("SELECT User,id FROM ftpd");
@@ -59,14 +59,14 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
                     }
                    while ($myrow = mysql_fetch_array ($result));
                   ?>
-				<? echo("<p><input name=\"submit\" type=\"submit\" value=\"$del_button\"></p>"); ?>
+				<?php echo("<p><input name=\"submit\" type=\"submit\" value=\"$del_button\"></p>"); ?>
                   </form></br></br>
                </td>
             </tr>
           </table>
         </td>
        </tr>
-<? include("blocks/footer.php"); ?>
+<?php include("blocks/footer.php"); ?>
   </tbody>
 </table>
 </body>

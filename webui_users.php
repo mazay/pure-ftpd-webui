@@ -38,16 +38,16 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 <body id="dt_example" class="ex_highlight_row">
 <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" class="main_border">
   <tbody>
-<? include("blocks/header.php"); ?>
+<?php include("blocks/header.php"); ?>
   <tr>
       <td><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
          <tr>
                <td valign="top">
 <table width="100%" align="center" border="0" cellpadding="0" cellspacing="0">
     <tr>
-      <? include("blocks/menu.php"); ?>
+      <?php include("blocks/menu.php"); ?>
     </tr>
-</table></br><? echo("$info</br>");
+</table></br><?php echo("$info</br>");
 			if (isset ($_POST['add'])) {
 				echo("
 					<form name=\"form1\" method=\"post\" action=\"$PHP_SELF\">
@@ -121,7 +121,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
           </table>
         </td>
        </tr>
-<? include("blocks/footer.php"); ?>
+<?php include("blocks/footer.php"); ?>
   </tbody>
 </table>
 </body>
