@@ -77,8 +77,9 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 								<p>
 									<label>$um_userform_status</br>
 									<select name='status'>
-									<option>'0'</option>
-									<option>'1'</option>
+									<option value='0'>inactive</option>
+									<option value='1'>active</option>
+									</select>
 									</label>
 								</p>
 								<p>
@@ -356,6 +357,12 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 					else {
 						$result = mysql_query ("SELECT * FROM ftpd WHERE id=$id");
 						$myrow = mysql_fetch_array ($result);
+						if ($myrow[status] == 0) {
+							$select = "<option value='0' selected='selected'>inactive</option><option value='1'>active</option>";
+						}
+						else {
+							$select = "<option value='0'>inactive</option><option value='1' selected='selected'>active</option>";
+						}
 						print <<<HERE
 							<FORM name="form1" method="post" action="$PHP_SELF">
 								<p>
@@ -365,7 +372,9 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 								</p>
 								<p>
 									<label>$um_userform_status</br>
-									<INPUT value="$myrow[status]" type="text" name="status" id="status">
+									<select name='status'>
+									$select
+									</select>
 									</label>
 								</p>
 								<p>
