@@ -48,7 +48,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
       <?php include("blocks/menu.php"); ?>
     </tr>
 </table></br><?php echo("$info"); ?></br>
-				<?
+				<?php
 					if (isset ($_POST['id']) && !isset($_POST['edit']) && !isset($_POST['delete'])) {
 						$id = $_POST['id'];
                  		$result = mysql_query ("SELECT * FROM userlist WHERE id=$id");
