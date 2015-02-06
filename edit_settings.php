@@ -1,8 +1,9 @@
 <?php
 $master = "edit_settings.php";
-include ("blocks/default.php");
-include ("blocks/lock.php");
-include ("blocks/db_connect.php"); /*Подлкючаемся к базе*/
+include("./config.php");
+include("./blocks/db_connect.php"); /*Подлкючаемся к базе*/
+include("./blocks/lock.php");
+include("./blocks/default.php");
 $user = $_SERVER['PHP_AUTH_USER'];
 $info = '';
 $get_user_language = FALSE;
@@ -59,7 +60,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 								echo "<p><strong>$settings_ftp_dir_ok</strong></p>";
 							}
 							else {
-								echo "<p><strong>$settings_ftp_dir_error</strong></p>";
+								echo "<p><strong>$error $result</strong></p>";
 							}
 						}
 					}
@@ -71,7 +72,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 								echo "<p><strong>$settings_upload_speed_ok</strong></p>";
 							}
 							else {
-								echo "<p><strong>$settings_upload_speed_error</strong></p>";
+								echo "<p><strong>$error $result</strong></p>";
 							}
 						}
 					}
@@ -83,7 +84,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 								echo "<p><strong>$settings_download_speed_ok</strong></p>";
 							}
 							else {
-								echo "<p><strong>$settings_download_speed_error</strong></p>";
+								echo "<p><strong>$error $result</strong></p>";
 							}
 						}
 					}
@@ -95,7 +96,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 								echo "<p><strong>$settings_quota_size_ok</strong></p>";
 							}
 							else {
-								echo "<p><strong>$settings_quota_size_error</strong></p>";
+								echo "<p><strong>$error $result</strong></p>";
 							}
 						}
 					}
@@ -107,7 +108,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 								echo "<p><strong>$settings_quota_files_ok</strong></p>";
 							}
 							else {
-								echo "<p><strong>$settings_quota_files_error</strong></p>";
+								echo "<p><strong>$error $result</strong></p>";
 							}
 						}
 					}
@@ -119,7 +120,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 								echo "<p><strong>$settings_permitted_ip_ok</strong></p>";
 							}
 							else {
-								echo "<p><strong>$settings_permitted_ip_error</strong></p>";
+								echo "<p><strong>$error $result</strong></p>";
 							}
 						}
 					}
@@ -131,7 +132,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 								echo "<p><strong>$settings_pureftpd_conf_path_ok</strong></p>";
 							}
 							else {
-								echo "<p><strong>$settings_pureftpd_conf_path_error</strong></p>";
+								echo "<p><strong>$error $result</strong></p>";
 							}
 						}
 					}
@@ -143,7 +144,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 								echo "<p><strong>$settings_pureftpd_init_script_path_ok</strong></p>";
 							}
 							else {
-								echo "<p><strong>$settings_pureftpd_init_script_path_error</strong></p>";
+								echo "<p><strong>$error $result</strong></p>";
 							}
 						}
 					}
@@ -155,7 +156,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 								echo "<p><strong>$settings_pureftpwho_path_ok</strong></p>";
 							}
 							else {
-								echo "<p><strong>$settings_pureftpwho_path_error</strong></p>";
+								echo "<p><strong>$error $result</strong></p>";
 							}
 						}
 					}

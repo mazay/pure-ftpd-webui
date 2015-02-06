@@ -1,7 +1,8 @@
 <?php
 $master = "webui_users.php";
-include ("blocks/lock.php");
-include ("blocks/db_connect.php"); /*Подлкючаемся к базе*/
+include("./config.php");
+include("./blocks/db_connect.php"); /*Подлкючаемся к базе*/
+include("./blocks/lock.php");
 $user = $_SERVER['PHP_AUTH_USER'];
 $info = '';
 $get_user_language = FALSE;
@@ -88,7 +89,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 				if (isset ($user) && isset($pass) && isset($language)) {
 					$result = mysql_query ("INSERT INTO userlist (user,pass,language) VALUES ('$user_add',md5('$pass'),'$language')");
 					if ($result == 'true') {echo "<p><strong>$wu_add_resultok</strong></p>";}
-					else {echo "<p><strong>$wu_add_resulterror</strong></p>";}
+					else {echo "<p><strong>$error $result</strong></p>";}
 				}
 				else {echo "<p><strong>$wu_add_checkfields</strong></p>";}
 

@@ -1,6 +1,4 @@
 <?php
-include ("db_connect.php");
-
 $result = mysql_query ("SELECT * FROM settings WHERE name='ftp_dir'");
 $array = mysql_fetch_array ($result);
 $ftp_dir = $array["value"];
@@ -36,5 +34,3 @@ $pureftpd_init_script_path = $array["value"];
 $result = mysql_query ("SELECT * FROM settings WHERE name='pureftpwho_path'");
 $array = mysql_fetch_array ($result);
 $pureftpwho_path = $array["value"];
-
-?>
