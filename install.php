@@ -1,7 +1,6 @@
 <?php
 error_reporting(0);
 
-include ("version.php");
 echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
 <HTML xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en-US\" xml:lang=\"en-US\">
 <HEAD>
@@ -339,7 +338,7 @@ echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://
 
 		else {
 			echo("
-				<p align=\"center\" class=\"text_title\" >Welcome to </br> Pure-FTPd WebUI $version installer</p>
+				<p align=\"center\" class=\"text_title\" >Welcome to </br> Pure-FTPd WebUI 0.2.0 installer</p>
 
 				<form name=\"1\" method=\"post\" action=\"$PHP_SELF\">
 					<p align=\"center\">

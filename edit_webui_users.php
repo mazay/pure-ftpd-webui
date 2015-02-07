@@ -1,7 +1,8 @@
 <?php
 $master = "webui_users.php";
-include ("blocks/lock.php");
-include ("blocks/db_connect.php"); /*Подлкючаемся к базе*/
+include("./config.php");
+include("./blocks/db_connect.php"); /*Подлкючаемся к базе*/
+include("./blocks/lock.php");
 $user = $_SERVER['PHP_AUTH_USER'];
 $info = '';
 $get_user_language = FALSE;
@@ -96,23 +97,23 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 							// Если изменено имя пользователя, вносим изменения в базу
 							if (($user != $array[user]) && isset ($id)) {
 								$result = mysql_query ("UPDATE userlist SET user='$user' WHERE id='$id'");
-								if ($result == 'true') {echo "<p><strong>$ewu_edit_loginok</strong></p>";}
-								else {echo "<p><strong>$ewu_edit_loginerror</strong></p>";}
+								if ($result == 'true') {echo "<p><strong>$array[user] $ewu_edit_loginok $user</strong></p>";}
+								else {echo "<p><strong>$error $result</strong></p>";}
 							}
 							// Если изменен пароль пользователя, вносим изменения в базу
 							if (isset ($pass)) { 
 								$pass = md5($pass);
 								if (($pass != $array[pass]) && isset ($id)) {
 									$result = mysql_query ("UPDATE userlist SET pass='$pass' WHERE id='$id'");
-									if ($result == 'true') {echo "<p><strong>$ewu_edit_passwdok</strong></p>";}
-									else {echo "<p><strong>$ewu_edit_passwderror</strong></p>";}
+									if ($result == 'true') {echo "<p><strong>$ewu_edit_passwdok $array[user]</strong></p>";}
+									else {echo "<p><strong>$error $result</strong></p>";}
 								}
 							}
 							// Если изменён язык пользователя, вносим изменения в базу
 							if (($language != $array[language]) && isset ($id)) {
 								$result = mysql_query ("UPDATE userlist SET language='$language' WHERE id='$id'");
-								if ($result == 'true') {echo "<p><strong>$ewu_edit_languageok</strong></p>";}
-								else {echo "<p><strong>$ewu_edit_languageerror</strong></p>";}
+								if ($result == 'true') {echo "<p><strong>$ewu_edit_languageok $array[user]</strong></p>";}
+								else {echo "<p><strong>$error $result</strong></p>";}
 							}
 						}
 						else {echo"<p><strong>$um_edit_nochanges</strong></p>";}
@@ -130,7 +131,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 							$id = $_POST['id'];
 							$result = mysql_query ("DELETE FROM userlist WHERE id='$id'");
 							if ($result == 'true') {echo "<p>$ewu_del_resultok<p>";}
-							else {echo "<p>$ewu_del_resulterror</p>";}
+							else {echo "<p>$error $result</p>";}
 						}
 						else {
 							echo "<p>$ewu_del_notchecked</p>";

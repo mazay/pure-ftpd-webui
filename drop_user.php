@@ -1,7 +1,8 @@
 <?php
 $master = "del_user.php";
-include ("blocks/lock.php");
-include ("blocks/db_connect.php"); /*Подключаемся к базе*/
+include("./config.php");
+include("./blocks/db_connect.php"); /*Подключаемся к базе*/
+include("./blocks/lock.php");
 if (isset ($_POST['id'])) {$id = $_POST['id'];}
 $user = $_SERVER['PHP_AUTH_USER'];
 $info = '';
@@ -53,7 +54,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
                   /*Удаляем пользователя из базы*/
                   $result = mysql_query ("DELETE FROM ftpd WHERE id='$id'");
                   if ($result == 'true') {echo "<p>$du_success<p>";}
-                  else {echo "<p>$du_error</p>";}
+                  else {echo "<p>$error $result</p>";}
                   }
                 else
                   {
