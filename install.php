@@ -18,7 +18,7 @@ echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://
 ");
 		if (isset ($_POST['install'])) {
 			echo("
-				<form name=\"2\" method=\"post\" action=\"$PHP_SELF\">
+				<form name=\"2\" method=\"post\" action=\"$_SERVER['PHP_SELF']\">
 					<tr>
 						<td align=\"right\" width=\"10%\">
 							<p align=\"left\">
@@ -93,8 +93,8 @@ echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://
 										  `User` varchar(16) NOT NULL DEFAULT '',
 										  `status` enum('0','1') NOT NULL DEFAULT '0',
 										  `Password` varchar(64) NOT NULL DEFAULT '',
-										  `Uid` varchar(11) NOT NULL DEFAULT '2001',
-										  `Gid` varchar(11) NOT NULL DEFAULT '2001',
+										  `Uid` varchar(11) NOT NULL DEFAULT 'pureftpd',
+										  `Gid` varchar(11) NOT NULL DEFAULT 'pureftpd',
 										  `Dir` varchar(128) NOT NULL DEFAULT '/media/FTP',
 										  `ULBandwidth` int(5) NOT NULL DEFAULT '0',
 										  `DLBandwidth` int(5) NOT NULL DEFAULT '0',
@@ -268,7 +268,7 @@ echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://
 				// Здесь будет создание конфига для конекта к базе //
 				create_webui_conf();
 				echo("
-					<form name=\"3\" method=\"post\" action=\"$PHP_SELF\">
+					<form name=\"3\" method=\"post\" action=\"$_SERVER['PHP_SELF']\">
                     <tr>
                         <td align=\"right\" width=\"10%\">
                         	<p align=\"left\" class=\"text_title\" >To create Pure-FTPd WebUI administrator</br>fill in the following fields</p>
@@ -341,7 +341,7 @@ echo("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://
 			echo("
 				<p align=\"center\" class=\"text_title\" >Welcome to </br> Pure-FTPd WebUI $version installer</p>
 
-				<form name=\"1\" method=\"post\" action=\"$PHP_SELF\">
+				<form name=\"1\" method=\"post\" action=\"$_SERVER['PHP_SELF']\">
 					<p align=\"center\">
 						<label>
 							<input type=\"submit\" name=\"install\" id=\"install\" value=\"Install\">

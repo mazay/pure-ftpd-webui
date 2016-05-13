@@ -50,7 +50,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 </table></br><?php echo("$info</br>");
 			if (isset ($_POST['add'])) {
 				echo("
-					<form name=\"form1\" method=\"post\" action=\"$PHP_SELF\">
+					<form name=\"form1\" method=\"post\" action=\"" . $_SERVER['PHP_SELF'] . "\">
 						<p>
 							<label>$ewu_form_login</br>
 							<input type=\"text\" name=\"user_add\" id=\"user_add\">
@@ -93,7 +93,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 				else {echo "<p><strong>$wu_add_checkfields</strong></p>";}
 
 						echo "</br>
-							<form name='to_list' method='post' action='$PHP_SELF'>
+							<form name='to_list' method='post' action='" . $_SERVER['PHP_SELF'] . "'>
 								<p>
 									<label>
 									<input type='submit' name='users' id='users' value='$wu_add_checkfieldsback'>
@@ -113,7 +113,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 				while ($myrow = mysql_fetch_array ($result));
                 echo("<p><input name=\"submit\" type=\"submit\" value=\"$wu_editbutton\">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                 	<input type=\"submit\" name=\"delete\" value=\"$ewu_deluserbutton\"></p></form>");
-                echo("<form name=\"to_list\" method=\"post\" action=\"$PHP_SELF\">
+                echo("<form name=\"to_list\" method=\"post\" action=\"" . $_SERVER['PHP_SELF'] . "\">
                 	<p><input type=\"submit\" name=\"add\" value=\"$wu_adduserbutton\"></p></form>");
             } ?>
                </td>

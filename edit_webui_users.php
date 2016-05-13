@@ -54,7 +54,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
                  		$result = mysql_query ("SELECT * FROM userlist WHERE id=$id");
 						$myrow = mysql_fetch_array ($result);
 						echo("
-							<form name=\"form1\" method=\"post\" action=\"$PHP_SELF\">
+							<form name=\"form1\" method=\"post\" action=\"" . $_SERVER['PHP_SELF'] . "\">
 								<p>
 									<label>$ewu_form_login</br>
 									<input value=\"$myrow[user]\" type=\"text\" name=\"user\" id=\"user\">
