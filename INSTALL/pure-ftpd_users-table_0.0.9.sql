@@ -10,7 +10,7 @@ CREATE TABLE `ftpd` (
   `DLBandwidth` int(5) NOT NULL DEFAULT '0',
   `comment` tinytext NOT NULL,
   `ipaccess` varchar(15) NOT NULL DEFAULT '*',
-  `QuotaSize` int(6) NOT NULL DEFAULT '0',
+  `QuotaSize` bigint(20) NOT NULL DEFAULT '0',
   `QuotaFiles` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`User`),
   KEY `id` (`id`)
