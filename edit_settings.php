@@ -50,7 +50,43 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
     </tr>
 </table></br><?php echo("$info</br>");
 			if (isset ($_POST['save'])) {
-				if (($_POST['ftp_dir'] != $ftp_dir) || ($_POST['upload_speed'] != $upload_speed) || ($_POST['download_speed'] != $download_speed) || ($_POST['quota_size'] != $quota_size) || ($_POST['quota_files'] != $quota_files) || ($_POST['permitted_ip'] != $permitted_ip) || ($_POST['pureftpd_conf_path'] != $pureftpd_conf_path) || ($_POST['pureftpd_init_script_path'] != $pureftpd_init_script_path) || ($_POST['pureftpwho_path'] != $pureftpwho_path)) {
+				if (($_POST['ftp_uid'] != $ftp_uid) || ($_POST['ftp_gid'] != $ftp_gid) || ($_POST['ftp_dir'] != $ftp_dir) || ($_POST['upload_speed'] != $upload_speed) || ($_POST['download_speed'] != $download_speed) || ($_POST['quota_size'] != $quota_size) || ($_POST['quota_files'] != $quota_files) || ($_POST['permitted_ip'] != $permitted_ip) || ($_POST['pureftpd_conf_path'] != $pureftpd_conf_path) || ($_POST['pureftpd_init_script_path'] != $pureftpd_init_script_path) || ($_POST['pureftpwho_path'] != $pureftpwho_path)) {
+					if (isset ($_POST['ftp_uid'])) {
+						if ($_POST['ftp_uid'] != $ftp_uid) {
+							$ftp_uid_ = $_POST['ftp_uid'];
+							$result = mysql_query ("UPDATE settings SET value='$ftp_uid_' WHERE name='ftp_uid'");
+							if ($result == 'true') {
+								echo "<p><strong>$settings_ftp_uid_ok</strong></p>";
+							}
+							else {
+								echo "<p><strong>$settings_ftp_uid_error</strong></p>";
+							}
+						}
+					}
+					if (isset ($_POST['ftp_gid'])) {
+						if ($_POST['ftp_gid'] != $ftp_gid) {
+							$ftp_gid_ = $_POST['ftp_gid'];
+							$result = mysql_query ("UPDATE settings SET value='$ftp_gid_' WHERE name='ftp_gid'");
+							if ($result == 'true') {
+								echo "<p><strong>$settings_ftp_gid_ok</strong></p>";
+							}
+							else {
+								echo "<p><strong>$settings_ftp_gid_error</strong></p>";
+							}
+						}
+					}
+					if (isset ($_POST['ftp_dir'])) {
+						if ($_POST['ftp_dir'] != $ftp_dir) {
+							$ftp_dir_ = $_POST['ftp_dir'];
+							$result = mysql_query ("UPDATE settings SET value='$ftp_dir_' WHERE name='ftp_dir'");
+							if ($result == 'true') {
+								echo "<p><strong>$settings_ftp_dir_ok</strong></p>";
+							}
+							else {
+								echo "<p><strong>$settings_ftp_dir_error</strong></p>";
+							}
+						}
+					}
 					if (isset ($_POST['ftp_dir'])) {
 						if ($_POST['ftp_dir'] != $ftp_dir) {
 							$ftp_dir_ = $_POST['ftp_dir'];
@@ -149,8 +185,8 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 					}
 					if (isset($_POST['pureftpwho_path'])) {
 						if ($_POST['pureftpwho_path'] != $pureftpwho_path) {
-							$pureftpwho_path = $_POST['pureftpwho_path'];
-							$result = mysql_query ("UPDATE settings SET value='$pureftpwho_path' WHERE name='pureftpwho_path'");
+							$pureftpwho_path_ = $_POST['pureftpwho_path'];
+							$result = mysql_query ("UPDATE settings SET value='$pureftpwho_path_' WHERE name='pureftpwho_path'");
 							if ($result == 'true') {
 								echo "<p><strong>$settings_pureftpwho_path_ok</strong></p>";
 							}
@@ -167,7 +203,17 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 			else {
 				echo("<p class=\"text_title\">$settings_title2</p>");
 				echo("
-					<form name=\"form1\" method=\"post\" action=\"$PHP_SELF\">
+					<form name=\"form1\" method=\"post\" action=\"" . $_SERVER['PHP_SELF'] . "\">
+						<p>
+							<label>$settings_ftp_uid</br>
+							<input type=\"text\" name=\"ftp_uid\" id=\"ftp_uid\" value=\"$ftp_uid\" size=\"40\">
+							</label>
+						</p>
+						<p>
+							<label>$settings_ftp_gid</br>
+							<input type=\"text\" name=\"ftp_gid\" id=\"ftp_gid\" value=\"$ftp_gid\" size=\"40\">
+							</label>
+						</p>
 						<p>
 							<label>$settings_ftp_dir</br>
 							<input type=\"text\" name=\"ftp_dir\" id=\"ftp_dir\" value=\"$ftp_dir\" size=\"40\">

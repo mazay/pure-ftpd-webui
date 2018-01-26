@@ -90,7 +90,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 					} else {
 				echo "<p align='center'><strong>$dc_confeditnorights</strong></p></br>";}
 
-				echo "	<form method='post' action='$PHP_SELF'>
+				echo "<form method='post' action='" . $_SERVER['PHP_SELF'] . "'>
 							<p align='center'>
 								<input type='submit' name='edit' value='$dc_confeditbackbutton'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 								<input type='submit' name='daemon' value='$dc_daemoncontrol'>
@@ -115,16 +115,19 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 
 					// Если была дана команда "рестарт" - рестартуем демона
 					elseif ($daemon_ctl == 'restart') {
-						$result = shell_exec("sudo $pureftpd_init_script_path stop");
-						echo("<p>$result</p>");
-						$result = shell_exec("sudo $pureftpd_init_script_path start");
+						$result = shell_exec("sudo $pureftpd_init_script_path restart");
+						echo("<p>$result</p>");}
+
+					// Server status
+					elseif ($daemon_ctl == 'status') {
+						$result = shell_exec("sudo $pureftpd_init_script_path status");
 						echo("<p>$result</p>");}
 
 					// Если ни один вариант не верен - выдаём ошибку
 					else {echo("<p><strong>$dc_wrongcommand</strong></p>");}
 
 					echo "</br>
-							<form method='post' action='$PHP_SELF'>
+							<form method='post' action='" . $_SERVER['PHP_SELF'] . "'>
 								<p align='center'>
 									<input type='submit' name='daemon' value='$dc_wrongcommandback'>
 								</p>
@@ -135,7 +138,7 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 					if ((isset ($_POST['daemon'])) || (!isset ($_POST['']))) {
 					echo "
 							<p class='text_title' align='center'>$dc_dctitle</p>
-							<form name='dc' method='post' action='$PHP_SELF'><table align='center'><tr>
+							<form name='dc' method='post' action='" . $_SERVER['PHP_SELF'] . "'><table align='center'><tr>
 								<td width='150px'><p>
 									<label>
 									<input type='radio' name='daemon_ctl' id='start' value='start'> Start
@@ -150,18 +153,26 @@ echo("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
 									<label>
 									<input type='radio' name='daemon_ctl' id='restart' value='restart'> Restart
 									</label>
-								</p></td>
+								</p>
+								<p>
+									<label>
+									<input type='radio' name='daemon_ctl' id='status' value='status'> Status
+									</label>
+								</p>
+								</td>
 								<td><p>
 									<label>
 									<input type='submit' name='control' value='$dc_dcperformbutton'>
 									</label>
 								</p></td></tr></table></form></br>
 
-							<form method='post' action='$PHP_SELF'>
+							<form method='post' action='" . $_SERVER['PHP_SELF'] . "'>
 								<p align='center'>
 									<input type='submit' name='edit' value='$dc_dceditconfig'>
 								</p>
-							</form>";}
+							</form>
+
+						";}
 				}
 			?>
 

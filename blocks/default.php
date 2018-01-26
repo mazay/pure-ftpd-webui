@@ -1,6 +1,18 @@
 <?php
 include ("db_connect.php");
 
+$result = mysql_query ("SELECT * FROM settings WHERE name='ftp_uid'");
+$array = mysql_fetch_array ($result);
+$ftp_uid = $array["value"];
+
+$result = mysql_query ("SELECT * FROM settings WHERE name='ftp_gid'");
+$array = mysql_fetch_array ($result);
+$ftp_gid = $array["value"];
+
+$result = mysql_query ("SELECT * FROM settings WHERE name='ftp_dir'");
+$array = mysql_fetch_array ($result);
+$ftp_dir = $array["value"];
+
 $result = mysql_query ("SELECT * FROM settings WHERE name='ftp_dir'");
 $array = mysql_fetch_array ($result);
 $ftp_dir = $array["value"];
